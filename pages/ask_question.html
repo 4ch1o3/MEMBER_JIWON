@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멤버에게 질문합니다.</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/ask_question.css">
+</head>
+<body>
+    <div id="bar">
+        <nav>
+            <ul style="list-style-type: none;">
+                <li class="button" onclick="location.href='main.html'">멤버</li>
+                <li class="button" onclick="location.href='profile.html'">내 프로필</li>
+                <li class="button">알림</li>
+            </ul>
+        </nav>
+    </div>
+    <div class="page-title">____에게 질문해요.</div>
+    <div class="gap-32"></div>
+    <div class="form-container">
+        <div class="profile">
+            <div class="profile-pic"></div>
+            <div class="member-info">
+                <div class="member-name">이름1</div>
+                <div class="member-bio">반갑습니다. 질문해주세요.</div>
+            </div>
+        </div>
+        <div class="gap-16"></div>
+        <textarea
+        placeholder="질문을 입력하세요."
+        class="question-field"></textarea>
+    </div>
+    <div class="gap-32"></div>
+    <div id="submit" class="button"
+    onclick="location.href='main.html'">질문 보내기</div>
+    <div>
+
+    </div>
+</body>
+</html>
