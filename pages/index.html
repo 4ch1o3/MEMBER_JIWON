@@ -1,48 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/index.css" />
     <link rel="stylesheet" href="../styles/login.css" />
     <title>로그인</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="login-main">
-        <div>
-            <div class="page-title">Login</div>
-            <div class="gap-64"></div>
-            <form action="main.html" method="get">
-                <input
-                type="text"
-                id="id"
-                name="id"
-                placeholder="ID"
-                required
-                />
-                <div class="gap-16"></div>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    required
-                />
-                <div class="button-group">
-                    <button id="login" class="button" 
-                        type="submit">
-                        로그인
-                        <!-- ID ・ PW 찾기 -->
-                    </button>
-                    <div id="divider"></div>
-                    <span id="signup" class="button" 
-                        type="button" onclick="location.href='signup.html'">
-                        회원가입
-                    </span>
-                </div>
-            </form>
-            
-        </div>
+      <div>
+        <div class="page-title">Login</div>
+        <!--remove gap-n when change to react-->
+        <div class="gap-64"></div>
+        <form action="main.html" method="get">
+          <input type="text" id="id" name="id" placeholder="ID" required />
+          <div class="gap-16"></div>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <div class="button-group">
+            <button id="login" class="button" type="submit">
+              로그인
+              <!-- ID ・ PW 찾기 -->
+            </button>
+            <div id="divider"></div>
+            <span
+              id="signup"
+              class="button"
+              type="button"
+              onclick="location.href='signup.html'"
+            >
+              회원가입
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
-    </body>
-    </html>
+  </body>
+</html>
