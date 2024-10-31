@@ -1,0 +1,23 @@
+.divider-vertical {
+  border: 2px solid;
+  border-color: var(--tertiery);
+  width: 276px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.divider-horizontal {
+  border: 1px solid;
+  border-color: var(--tertiery);
+  height: 64px;
+  margin-left: 32px;
+  margin-right: 32px;
+}
+
+.divider-button {
+  display: inline-block;
+  width: 0px;
+  height: 24px;
+  border: px solid;
+  border-color: var(--stroke);
+}
