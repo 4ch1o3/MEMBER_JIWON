@@ -7,38 +7,34 @@ const StyledUserInfo = styled.div`
 `;
 
 const UserName = styled.div`
-  font: var(--content-font);
+  font-size: var(--content-font);
+  font-weight: 500;
   align-self: stretch;
 `;
 
 const UserBio = styled.div`
-  font: var(--detail-font);
+  font-size: var(--detail-font);
+  font-weight: 300;
   align-self: stretch;
 `;
 
 const QuestionCount = styled.div`
   margin-top: 16px;
-  font: var(--detail-font);
+  font-size: var(--detail-font);
+  font-weight: 300;
   align-self: stretch;
 `;
 
 const UserInfo = ({ name, bio, questionCount }) => {
-  if (questionCount === -1) {
-    return (
-      <StyledUserInfo>
-        <UserName>{name}</UserName>
-        <UserBio>{bio}</UserBio>
-      </StyledUserInfo>
-    );
-  } else {
-    return (
-      <StyledUserInfo>
-        <UserName>{name}</UserName>
-        <UserBio>{bio}</UserBio>
+  return (
+    <StyledUserInfo>
+      <UserName>{name}</UserName>
+      <UserBio>{bio}</UserBio>
+      {questionCount !== -1 && (
         <QuestionCount>받은 질문 {questionCount}개</QuestionCount>
-      </StyledUserInfo>
-    );
-  }
+      )}
+    </StyledUserInfo>
+  );
 };
 
 export default UserInfo;

@@ -6,7 +6,7 @@ const Button = styled.div`
   color: ${(props) => (props.on ? "var(--white)" : "var(--black)")};
 
   display: flex;
-  flex-direction: row;
+  flex-shrink: 0;
   border-radius: 8px;
   padding: 16px;
   gap: 16px;
@@ -16,9 +16,8 @@ const Button = styled.div`
 
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
 
-  font-family: "Pretendard-Light";
+  font-weight: 300;
 
-  not working
   opacity: 1;
   transition: 0.25s;
   &:hover {

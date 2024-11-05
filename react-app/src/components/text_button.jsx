@@ -3,7 +3,8 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   border: none;
   background-color: var(--white);
-  font: var(--detail-font);
+  font-size: var(--detail-font);
+  font-weight: 300;
   margin: 16px;
 
   &:hover {
@@ -12,7 +13,7 @@ const StyledButton = styled.button`
 `;
 
 function TextButton({ children, onClick }) {
-  return <StyledButton onClick={onclick}>{children}</StyledButton>;
+  return <StyledButton onClick={onClick}>{children}</StyledButton>;
 }
 
 export default TextButton;

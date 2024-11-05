@@ -1,5 +1,6 @@
 import styled from "styled-components";
 // import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StyledNavBar = styled.div`
   display: flex;
@@ -9,7 +10,10 @@ const StyledNavBar = styled.div`
   padding: 16px;
   gap: 64px;
 
-  width: 100vw;
+  // TODO: which one covers fully?
+  // width: 100vw;
+  width: 100%;
+  margin: 0;
   height: 48px;
   left: 0px;
   top: 0px;
@@ -25,7 +29,7 @@ const StyledNavBar = styled.div`
 const navMenus = [
   { id: 1, name: "Home" },
   { id: 2, name: "Inbox" },
-  { id: 3, name: "Profile" },
+  { id: 3, name: "MyPage" },
   { id: 4, name: "Logout" },
 ];
 
@@ -35,14 +39,26 @@ const StyledNavMenu = styled.div`
 
   &:hover {
     cursor: pointer;
+    transition: 0.25s;
+    color: rgba(237, 237, 237, 0.75);
   }
 `;
 
 const NavBar = ({ menu }) => {
+  const navigate = useNavigate();
   return (
     <StyledNavBar>
       {navMenus.map((navMenu) => (
-        <StyledNavMenu key={navMenu.id}>{navMenu.name}</StyledNavMenu>
+        <StyledNavMenu
+          key={navMenu.id}
+          onClick={() => {
+            navMenu.name !== "Logout" &&
+              navigate(`/${navMenu.name.toLowerCase()}`);
+          }} // only navigate if name is not logout
+          // TODO: add authcontext to "Logout" case
+        >
+          {navMenu.name}
+        </StyledNavMenu>
       ))}
     </StyledNavBar>
   );

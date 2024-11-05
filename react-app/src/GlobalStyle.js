@@ -9,14 +9,18 @@ const GlobalStyle = createGlobalStyle`
     --white: #f8f8ff;
     --black: #202123;
 
-    --title-font: 24px "Pretendard-Bold";
-    --subtitle-font: 18px "Pretendard-Medium";
-    --content-font: 16px "Pretendard-Medium";
-    --detail-font: 14px "Pretendard-Light";
+    --title-font: 24px;
+    --subtitle-font: 18px;
+    --content-font: 16px ;
+    --detail-font: 14px;
 
-  }
+    
+}
+
+
 
   * {
+font-family: "Pretendard";
     line-height: 100%;
     
     box-sizing: border-box;
@@ -25,9 +29,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-  height: 100%;
   background: var(--main-gradient);
   background-size: cover;
+  min-height: 100vh;
   background-repeat: no-repeat;
   }
 `;

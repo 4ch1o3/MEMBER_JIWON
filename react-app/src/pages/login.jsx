@@ -17,11 +17,12 @@ const Wrapper = styled.div`
   flex-direction: row;
 `;
 
-const PageTitle = styled.div`
+const LoginPageTitle = styled.div`
   width: 436px;
 
   color: var(--white);
-  font-family: "Pretendard-Black";
+
+  font-weight: 900;
   font-size: 64px;
   margin: 144px;
 `;
@@ -31,8 +32,7 @@ const InputForm = styled.input.attrs((props) => ({
   placeholder: props.type === "pw" ? "PW" : "ID",
 }))`
   color: var(--black);
-  font-family: "Pretendard-Light";
-  font-size: 14px;
+  // font-size: 14px;
   padding: 16px;
   border: 0.5px solid;
   border-color: var(--primary);
@@ -64,35 +64,49 @@ const LoginBlock = styled.div`
 `;
 
 const BlockTitle = styled.div`
-  font: var(--title-font);
+  font-weight: 700;
+  font-size: var(--title-font);
 `;
 
 // TODO: make Formblock!!!
-// const FormBlock = ({ formTitle, formCount, buttonLabels }) => {
-//   <LoginBlock>
-//     <FormContainer>
-//       <form>
-//         <InputForm></InputForm>
-//         <InputForm></InputForm>
-//       </form>
-//     </FormContainer>
-//     <Wrapper>
-//       <TextButton></TextButton>
-//       <TextButton></TextButton>
-//     </Wrapper>
-//   </LoginBlock>;
+// const FormBlock = ({ type }) => {
+//   return (
+//     <LoginBlock>
+//       <BlockTitle>{type.title}</BlockTitle>
+//       <FormContainer>
+//         <form>{<InputForm></InputForm> * type.formCount}</form>
+//       </FormContainer>
+//       <Wrapper>
+//         <TextButton></TextButton>
+//         <TextButton></TextButton>
+//       </Wrapper>
+//     </LoginBlock>
+//   );
 // };
+
+// function IndexPage() {
+//   const type = [
+//     { id: 1, title: "Login", formCount: 2 },
+//     {
+//       id: 2,
+//       title: "Sign Up",
+//       formCount: 3,
+//     },
+//   ];
+//   // if ("/") return <FormBlock type="login"></FormBlock>;
+// }
 
 function Login() {
   const navigate = useNavigate();
 
   return (
     <Container>
-      <PageTitle>
+      <LoginPageTitle>
         Welcome!<br></br>
         <br></br>
         Feel free to Ask & Answer
-      </PageTitle>
+      </LoginPageTitle>
+
       <LoginBlock>
         <BlockTitle>Login</BlockTitle>
         <FormContainer>
@@ -102,7 +116,7 @@ function Login() {
         <Wrapper>
           <TextButton
             onClick={() => {
-              navigate("/");
+              navigate("/signup");
             }}
           >
             회원가입

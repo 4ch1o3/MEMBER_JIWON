@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import UserInfo from "./user_info";
-import ModalBackground from "./modal_background";
-import { QuestionModal } from "./modal";
+import { AnswerModal, QuestionModal } from "./modal";
 import { useState } from "react";
 
 const StyledProfileCard = styled.div`
