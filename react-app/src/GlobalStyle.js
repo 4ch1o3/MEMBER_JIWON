@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
 
 
   * {
-font-family: "Pretendard";
+font-family: "Pretendard Variable";
     line-height: 100%;
     
     box-sizing: border-box;
