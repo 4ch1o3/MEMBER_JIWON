@@ -62,7 +62,7 @@ export const StyledQuestionContent = styled.div`
   backdrop-filter: blur(12px);
 
   border-radius: 8px;
-  padding: 16px;
+  // padding: 16px;
   font-size: var(--content-font)
   font-weight: 500;
 `;
@@ -97,7 +97,7 @@ export const QuestionModal = ({ name, bio, onClose }) => {
           <UserInfo name={name} bio={bio} questionCount={-1}></UserInfo>
         </ModalProfile>
         <StyledQuestionContent>
-          <InputField></InputField>
+          <InputField placeholder={"질문을 입력하세요."}></InputField>
         </StyledQuestionContent>
         <ButtonSet>
           <Button onClick={onClose}>작성 취소</Button>

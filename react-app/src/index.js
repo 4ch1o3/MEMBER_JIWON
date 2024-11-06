@@ -4,12 +4,31 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "./GlobalStyle";
+import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import LoginPage from "./pages/login.jsx";
+import Home from "./pages/home.jsx";
+import Inbox from "./pages/inbox.jsx";
+import "./assets/fonts/fonts.css";
+import MyPage from "./pages/mypage.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <GlobalStyle></GlobalStyle>
-    <App />
+    <AuthProvider>
+      <GlobalStyle />
+      <BrowserRouter>
+        <App />
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/home" element={<Home />} />
+          {/* <Route path="/signup" element={<SignupPage />} /> */}
+          <Route path="/inbox" element={<Inbox />} />
+          <Route path="/mypage" element={<MyPage />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );
 

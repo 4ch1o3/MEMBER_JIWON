@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import TextButton from "../components/text_button";
 import { useNavigate } from "react-router-dom";
-// import {useAuth} from
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -98,6 +99,14 @@ const BlockTitle = styled.div`
 
 function Login() {
   const navigate = useNavigate();
+  const { login, isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+    console.log("isLoggedIn: ", isLoggedIn);
+  }, [isLoggedIn, navigate]);
 
   return (
     <Container>
@@ -123,6 +132,7 @@ function Login() {
           </TextButton>
           <TextButton
             onClick={() => {
+              login();
               navigate("/home");
             }}
           >

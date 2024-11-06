@@ -52,6 +52,7 @@ const Inbox = ({ name, bio, onClick }) => {
   const newCount = 1;
   const oldCount = 0;
 
+  
   // only for displaying
   //   const testQuestionList = [{ id: 1, name: "이지원", bio: "이것 뭐에요?" }];
 

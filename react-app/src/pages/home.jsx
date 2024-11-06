@@ -10,12 +10,6 @@ import { AlignCenter } from "../components/layout";
 // import ModalBackground from "../components/modal_background";
 
 function Home() {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const toggleModal = () => {
-  //   setIsModalOpen(!isModalOpen);
-  // };
-
   const profiles = [
     {
       id: 1,

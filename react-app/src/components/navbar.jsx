@@ -1,6 +1,7 @@
 import styled from "styled-components";
-// import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const StyledNavBar = styled.div`
   display: flex;
@@ -46,6 +47,7 @@ const StyledNavMenu = styled.div`
 
 const NavBar = ({ menu }) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   return (
     <StyledNavBar>
       {navMenus.map((navMenu) => (
@@ -54,8 +56,8 @@ const NavBar = ({ menu }) => {
           onClick={() => {
             navMenu.name !== "Logout" &&
               navigate(`/${navMenu.name.toLowerCase()}`);
+            logout();
           }} // only navigate if name is not logout
-          // TODO: add authcontext to "Logout" case
         >
           {navMenu.name}
         </StyledNavMenu>
