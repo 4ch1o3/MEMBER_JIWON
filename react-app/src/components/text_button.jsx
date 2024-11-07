@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 const StyledButton = styled.button`
+  width: fit-content;
   border: none;
   background-color: var(--white);
   font-size: var(--detail-font);
   font-weight: 300;
-  margin: 16px;
+  margin: 8px;
 
   &:hover {
     color: var(--primary);

@@ -9,6 +9,7 @@ const StyledProfileCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 16px;
+  margin: 16px;
   gap: 16px;
 
   background: rgba(237, 237, 237, 0.25);
