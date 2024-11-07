@@ -6,7 +6,7 @@ export const CardContainer = styled.div`
   flex-wrap: wrap;
 
   // TODO: fix width by viewport size
-  // max-width: 993px;
+  width: 993px; // temp
   // min-width: 352px;
   // width: fit-content;
 
