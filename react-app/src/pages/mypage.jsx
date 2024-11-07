@@ -3,6 +3,19 @@
 import { AlignCenter, CardContainer, Layout } from "../components/layout";
 import NavBar from "../components/navbar";
 import { TitleArea } from "../components/title";
+import { CircularProgressBar } from "@tomickigrzegorz/react-circular-progress-bar";
+
+const ProgressBar = ({ percent }) => {
+  return (
+    <CircularProgressBar
+      colorCircle="var(--white)"
+      colorSlice="var(--main-gradient)"
+      fill="var(--white)"
+      fontColor="var(--black)"
+      percent={percent}
+    ></CircularProgressBar>
+  );
+};
 
 const MyPage = () => {
   return (

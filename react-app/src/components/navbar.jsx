@@ -47,16 +47,23 @@ const StyledNavMenu = styled.div`
 
 const NavBar = ({ menu }) => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+    }
+  });
   return (
     <StyledNavBar>
       {navMenus.map((navMenu) => (
         <StyledNavMenu
           key={navMenu.id}
           onClick={() => {
-            navMenu.name !== "Logout" &&
+            if (navMenu.name === "Logout") {
+              logout();
+            } else {
               navigate(`/${navMenu.name.toLowerCase()}`);
-            logout();
+            }
           }} // only navigate if name is not logout
         >
           {navMenu.name}

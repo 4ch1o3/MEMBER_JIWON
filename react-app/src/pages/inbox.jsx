@@ -15,7 +15,9 @@ import UserInfo from "../components/user_info";
 import { ModalProfilePic } from "../components/modal";
 import Button from "../components/button";
 import { TitleArea } from "../components/title";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const StyledInboxCardWrapper = styled.div`
   height: fit-content;
@@ -52,16 +54,22 @@ const Inbox = ({ name, bio, onClick }) => {
   const newCount = 1;
   const oldCount = 0;
 
-  
   // only for displaying
   //   const testQuestionList = [{ id: 1, name: "이지원", bio: "이것 뭐에요?" }];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  });
   return (
     <AlignCenter>
       <NavBar></NavBar>
