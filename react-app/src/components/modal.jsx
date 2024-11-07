@@ -54,6 +54,7 @@ export const StyledQuestionContent = styled.div`
   background-color: var(--white);
   
   width: 100%;
+  // min-height: 197px;
   height: 100%;
   
   border-radius: 16px;
@@ -62,7 +63,7 @@ export const StyledQuestionContent = styled.div`
   backdrop-filter: blur(12px);
 
   border-radius: 8px;
-  // padding: 16px;
+  padding: 16px;
   font-size: var(--content-font)
   font-weight: 500;
 `;

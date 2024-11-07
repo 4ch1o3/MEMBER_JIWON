@@ -5,6 +5,8 @@ export const CardContainer = styled.div`
   flex-direction: ${(props) => (props.align === "row" ? "row" : "column")};
   flex-wrap: wrap;
   width: 993px;
+  // max-width: 993px;
+  // min-width: 352px;
 
   border-radius: 16px;
   background: var(--white);

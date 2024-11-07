@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import NavBar from "../components/navbar";
 import { Layout } from "../components/layout";
 import { TitleArea } from "../components/title";
@@ -10,8 +9,7 @@ const NoMatch = () => {
     <AlignCenter>
       <NavBar></NavBar>
       <Layout>
-        <TitleArea title="My Page" subtitle="만드는 중" on={"true"}></TitleArea>
-        <CardContainer>:(</CardContainer>
+        <TitleArea>No matched page here!</TitleArea>
       </Layout>
     </AlignCenter>
   );
