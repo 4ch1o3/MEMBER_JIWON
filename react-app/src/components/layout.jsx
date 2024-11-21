@@ -6,19 +6,26 @@ export const CardContainer = styled.div`
   flex-wrap: wrap;
 
   // TODO: fix width by viewport size
-  width: 993px; // temp
-  // min-width: 352px;
-  // width: fit-content;
+  width: fit-content;
 
   border-radius: 16px;
   background: var(--white);
-  // gap: 32px;
-  padding: 32px;
 
   margin-top: 24px;
 
+  gap: 16px;
+  padding: 32px;
+
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
+`;
+
+export const CardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  // TODO: fix width by viewport width
+  width: 100%;
 `;
 
 export const AlignCenter = styled.div`

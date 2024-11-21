@@ -44,7 +44,8 @@ export const ModalProfile = styled.div`
   align-items: center;
 
   width: 100%;
-
+  margin-top: 16px;
+  margin-bottom: 16px;
   padding: 16px;
   gap: 16px;
 `;

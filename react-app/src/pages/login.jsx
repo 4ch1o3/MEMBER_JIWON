@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import TextButton from "../components/text_button";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -99,8 +100,33 @@ const BlockTitle = styled.div`
 
 function Login() {
   const navigate = useNavigate();
-  const { login, isLoggedIn } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setLogin, isLoggedIn } = useAuth();
 
+  const login = (email, password) => {
+    return axios
+      .post(
+        "api/user/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => response.data)
+      .catch((error) => {
+        throw error;
+      });
+  };
+
+  const handleLogin = async () => {
+    await login(email, password).then((data) => {
+      console.log(data);
+    });
+  };
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/");
@@ -119,8 +145,19 @@ function Login() {
       <LoginBlock>
         <BlockTitle>Login</BlockTitle>
         <FormContainer>
-          <InputForm type="id" required></InputForm>
-          <InputForm type="pw" required></InputForm>
+          <InputForm
+            type="id"
+            required
+            onChange={(e) => {
+              setEmail(e.target.value);
+              console.log(e.target.value);
+            }}
+          ></InputForm>
+          <InputForm
+            type="pw"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          ></InputForm>
         </FormContainer>
         <Wrapper>
           <TextButton
@@ -132,7 +169,7 @@ function Login() {
           </TextButton>
           <TextButton
             onClick={() => {
-              login();
+              handleLogin();
               navigate("/home");
             }}
           >
