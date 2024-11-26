@@ -5,8 +5,8 @@ export const CardContainer = styled.div`
   flex-direction: ${(props) => (props.align === "row" ? "row" : "column")};
   flex-wrap: wrap;
 
-  width: fit-content;
-  // max-width: 993px;
+  width: 100%;
+  min-width: fit-content;
 
   border-radius: 16px;
   background: var(--white);
@@ -16,6 +16,7 @@ export const CardContainer = styled.div`
 
   gap: 16px;
   padding: 32px;
+  padding-bottom: 48px;
 
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
@@ -36,7 +37,7 @@ export const CardWrapper = styled.div`
   flex-wrap: wrap;
 
   width: fit-content;
-  margin: ;
+  height: 100%;
 `;
 
 export const AlignCenter = styled.div`
@@ -51,20 +52,27 @@ export const AlignRow = styled.div`
   display: flex;
   flex-direction: row;
   gap: 32px;
+  flex-shrink: 0;
 `;
 
 export const AlignColumn = styled.div`
-  width: 100%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
-  // gap: 32px;
+  flex-shrink: 0;
+  gap: 16px;
 `;
 
 export const Layout = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   padding-left: 144px;
   padding-right: 144px;
   padding-bottom: 144px;
+`;
+
+export const FullWidth = styled.div`
+  width: 1568px;
 `;
