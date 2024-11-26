@@ -157,7 +157,6 @@ export const AnswerModal = ({ user, onClose }) => {
       alert("답변을 성공적으로 보냈습니다!");
     } catch (error) {
       console.error(error);
-      // response: [object Object]
       alert("답변을 작성하는 데 실패했습니다. 다시 시도해주세요.");
     }
   };
