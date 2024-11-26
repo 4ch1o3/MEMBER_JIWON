@@ -3,8 +3,8 @@ import axiosInstance from "../utils/axiosInstance";
 export const createQuestion = ({ targetId, content, subject = "" }) => {
   return axiosInstance.post("/question", {
     targetId,
-    content,
     subject,
+    content,
   });
 };
 
