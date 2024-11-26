@@ -5,13 +5,14 @@ export const CardContainer = styled.div`
   flex-direction: ${(props) => (props.align === "row" ? "row" : "column")};
   flex-wrap: wrap;
 
-  // TODO: fix width by viewport size
   width: fit-content;
+  // max-width: 993px;
 
   border-radius: 16px;
   background: var(--white);
 
   margin-top: 24px;
+  justify-content: center;
 
   gap: 16px;
   padding: 32px;
@@ -22,10 +23,11 @@ export const CardContainer = styled.div`
 
 export const CardWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 
-  // TODO: fix width by viewport width
-  width: 100%;
+  width: fit-content;
+  margin: ;
 `;
 
 export const AlignCenter = styled.div`

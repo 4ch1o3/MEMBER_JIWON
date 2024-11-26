@@ -24,15 +24,20 @@ font-family: "Pretendard Variable";
     line-height: 100%;
     
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    
   }
 
-  html, body {
-  background: var(--main-gradient);
-  background-size: cover;
-  min-height: 100vh;
-  background-repeat: no-repeat;
+ html, body {
+    background: var(--main-gradient);
+    min-height: 100%;
+    min-width: 100%;
+    margin: 0;
+    padding: 0;
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    // background-repeat: no-repeat;
   }
 `;
 

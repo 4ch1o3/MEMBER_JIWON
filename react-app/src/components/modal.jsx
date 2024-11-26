@@ -3,13 +3,22 @@ import ButtonSet from "./button_set";
 import Button from "./button";
 import UserInfo from "./user_info";
 import TextButton from "./text_button";
-// import ProfileCard from "./profile_card";
-// import { useState } from "react";
 import ModalBackground from "./modal_background";
 import InputField from "./input_field";
+// import ProfileCard from "./profile_card";
+
+import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useLocation } from "react-router-dom";
+
+import { createAnswer, createQuestion } from "../apis/qna";
 
 const StyledModalContainer = styled.div`
-  width: 736px;
+  width: 100%;
+  max-width: 736px;
+  min-width: 448px;
   height: 518px;
 
   background-color: var(--white);
@@ -44,8 +53,8 @@ export const ModalProfile = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  // margin-top: 16px;
+  // margin-bottom: 16px;
   padding: 16px;
   gap: 16px;
 `;
@@ -55,7 +64,6 @@ export const StyledQuestionContent = styled.div`
   background-color: var(--white);
   
   width: 100%;
-  // min-height: 197px;
   height: 100%;
   
   border-radius: 16px;
@@ -90,30 +98,105 @@ export const ModalProfilePic = styled.div`
   background: var(--button-secondary);
 `;
 
-export const QuestionModal = ({ name, bio, onClose }) => {
+export const QuestionModal = ({ user, onClose }) => {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      await createQuestion({ targetId: user.id });
+      alert("질문을 성공적으로 보냈습니다!");
+    } catch (error) {
+      console.error(error);
+      // response: [object Object]
+      alert("질문을 작성하는 데 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  if (!isLoggedIn) {
+    alert("로그인 후 이용해 주세요.");
+    navigate("/login");
+  }
   return (
     <ModalBackground onClick={onClose}>
       <StyledModalContainer onClick={(e) => e.stopPropagation()}>
         <ModalProfile>
           <ModalProfilePic></ModalProfilePic>
-          <UserInfo name={name} bio={bio} questionCount={-1}></UserInfo>
+          <UserInfo
+            name={user.name}
+            bio={user.bio}
+            questionCount={-1}
+          ></UserInfo>
         </ModalProfile>
         <StyledQuestionContent>
-          <InputField placeholder={"질문을 입력하세요."}></InputField>
+          <InputField
+            placeholder={"질문을 입력하세요."}
+            onChange={(e) => {
+              createQuestion(e.target.value);
+            }}
+          ></InputField>
         </StyledQuestionContent>
         <ButtonSet>
           <Button onClick={onClose}>작성 취소</Button>
-          <Button on={"true"} onClick={onClose}>
+          <Button on={"true"} onClick={handleSubmit}>
             질문 보내기
           </Button>
-          {/* TODO: add procedure to submit question content */}
         </ButtonSet>
       </StyledModalContainer>
     </ModalBackground>
   );
 };
 
-export const AnswerModal = ({ name, bio, onClose }) => {
+export const AnswerModal = ({ user, onClose }) => {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      await createAnswer({ targetId: user.id });
+      alert("답변을 성공적으로 보냈습니다!");
+    } catch (error) {
+      console.error(error);
+      // response: [object Object]
+      alert("답변을 작성하는 데 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  if (!isLoggedIn) {
+    alert("로그인 후 이용해 주세요.");
+    navigate("/login");
+  }
+  return (
+    <ModalBackground onClick={onClose}>
+      <StyledModalContainer onClick={(e) => e.stopPropagation()}>
+        <ModalProfile>
+          <ModalProfilePic></ModalProfilePic>
+          <UserInfo
+            name={user.name}
+            bio={user.bio}
+            questionCount={-1}
+          ></UserInfo>
+        </ModalProfile>
+        <StyledQuestionContent>
+          <InputField
+            placeholder={"답변을 입력하세요."}
+            onChange={(e) => {
+              createQuestion(e.target.value);
+            }}
+          ></InputField>
+        </StyledQuestionContent>
+        <ButtonSet>
+          <Button onClick={onClose}>작성 취소</Button>
+          <Button on={"true"} onClick={handleSubmit}>
+            답변 보내기
+          </Button>
+        </ButtonSet>
+      </StyledModalContainer>
+    </ModalBackground>
+  );
+};
+
+export const ViewAnswerModal = ({ name, bio, onClose }) => {
   return (
     <ModalBackground onClick={onClose}>
       <StyledModalContainer onClick={(e) => e.stopPropagation()}>

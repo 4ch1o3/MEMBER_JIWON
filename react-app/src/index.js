@@ -26,7 +26,6 @@ root.render(
           <Route path="/home" element={<Home />} />
           <Route path="/inbox" element={<Inbox />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="*" element={<NoMatch />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

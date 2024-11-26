@@ -8,11 +8,7 @@ import { useEffect } from "react";
 
 // import NavBar from "./components/navbar.jsx";
 
-const Layout = styled.div`
-  // padding-left: 368px;
-  // padding-right: 368px;
-  display: flex;
-`;
+const Layout = styled.div``;
 
 function App() {
   const { isLoggedIn } = useAuth();

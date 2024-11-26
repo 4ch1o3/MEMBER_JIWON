@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import UserInfo from "./user_info";
 import { AnswerModal, QuestionModal } from "./modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import { createQuestion } from "../apis/qna";
 
 const StyledProfileCard = styled.div`
   display: flex;
@@ -47,12 +50,19 @@ export const ProfilePic = styled.div`
   background: var(--button-secondary);
 `;
 
-const ProfileCard = ({ name, bio, questionCount, onClick }) => {
+const ProfileCard = ({ id, name, bio, questionCount, onClick }) => {
   if (onClick) console.log("clicked"); // nothing shown
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const user = {
+    id: id,
+    name: name,
+    bio: bio,
+    questionCount: questionCount,
   };
   return (
     <>
@@ -60,15 +70,14 @@ const ProfileCard = ({ name, bio, questionCount, onClick }) => {
         <ProfilePic></ProfilePic>
         <Profile>
           <UserInfo
-            name={name}
-            bio={bio}
-            questionCount={questionCount}
+            id={user.id}
+            name={user.name}
+            bio={user.bio}
+            questionCount={user.questionCount}
           ></UserInfo>
         </Profile>
       </StyledProfileCard>
-      {isModalOpen && (
-        <QuestionModal name={name} bio={bio} onClose={toggleModal} />
-      )}
+      {isModalOpen && <QuestionModal user={user} onClose={toggleModal} />}
     </>
   );
 };

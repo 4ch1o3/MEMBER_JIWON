@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     return savedStatus === "true";
   });
 
-  const login = () => {
+  const setLogin = () => {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
   };
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   }, [isLoggedIn]);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, setLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

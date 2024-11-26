@@ -7,11 +7,12 @@ import axios from "axios";
 
 const Container = styled.div`
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin: 0;
 `;
 
 const Wrapper = styled.div`
@@ -70,34 +71,6 @@ const BlockTitle = styled.div`
   font-size: var(--title-font);
 `;
 
-// TODO: make Formblock!!!
-// const FormBlock = ({ type }) => {
-//   return (
-//     <LoginBlock>
-//       <BlockTitle>{type.title}</BlockTitle>
-//       <FormContainer>
-//         <form>{<InputForm></InputForm> * type.formCount}</form>
-//       </FormContainer>
-//       <Wrapper>
-//         <TextButton></TextButton>
-//         <TextButton></TextButton>
-//       </Wrapper>
-//     </LoginBlock>
-//   );
-// };
-
-// function IndexPage() {
-//   const type = [
-//     { id: 1, title: "Login", formCount: 2 },
-//     {
-//       id: 2,
-//       title: "Sign Up",
-//       formCount: 3,
-//     },
-//   ];
-//   // if ("/") return <FormBlock type="login"></FormBlock>;
-// }
-
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -122,11 +95,21 @@ function Login() {
       });
   };
 
+  // const handleLogin = async () => {
+  //   await login(email, password).then((data) => {
+  //     setLogin();
+  //   });
+  // };
   const handleLogin = async () => {
-    await login(email, password).then((data) => {
-      console.log(data);
-    });
+    try {
+      const response = await login(email, password);
+      setLogin();
+      navigate("/home");
+    } catch (error) {
+      console.error("Login failed");
+    }
   };
+
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/");
@@ -150,7 +133,7 @@ function Login() {
             required
             onChange={(e) => {
               setEmail(e.target.value);
-              console.log(e.target.value);
+              // console.log(e.target.value);
             }}
           ></InputForm>
           <InputForm
@@ -170,7 +153,6 @@ function Login() {
           <TextButton
             onClick={() => {
               handleLogin();
-              navigate("/home");
             }}
           >
             로그인
