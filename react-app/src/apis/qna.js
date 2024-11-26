@@ -28,7 +28,7 @@ export const getSentQuestion = () => {
 
 export const getReceivedAnswer = () => {
   return axiosInstance
-    .get("/answer/received")
+    .get("/answer/all")
     .then((response) => response.data)
     .catch((error) => {
       throw error;
