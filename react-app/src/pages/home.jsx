@@ -6,6 +6,7 @@ import { Layout } from "../components/layout";
 import { CardContainer } from "../components/layout";
 import { AlignCenter } from "../components/layout";
 import { useEffect, useState } from "react";
+import { getAllUsers } from "../apis/user";
 // import { useState } from "react";
 // import { QuestionModal } from "../components/modal";
 // import ModalBackground from "../components/modal_background";
@@ -14,20 +15,16 @@ function Home() {
   const [profiles, setProfiles] = useState([]); // if none, empty array
 
   useEffect(() => {
-    const fetchProfiles = async () => {
-      const response = await fetch(
-        "https://api-test-gdsc-22b48e20369e.herokuapp.com/api/data",
-        {
-          method: "GET", // automatically GET
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
+    async function fetchAllUsers() {
+      try {
+        const data = await getAllUsers();
         setProfiles(data);
+        // console.log(data);
+      } catch (error) {
+        console.error(error);
       }
-    };
-    fetchProfiles();
+    }
+    fetchAllUsers();
   }, []);
 
   return (
@@ -43,9 +40,10 @@ function Home() {
           {profiles.map((profile) => (
             <ProfileCard
               key={profile.id}
-              name={profile.name}
+              name={profile.username}
+              email={profile.email}
               bio={profile.bio}
-              questionCount={profile.questionCount}
+              questionCount={profile.receivedQuestionCount}
             />
           ))}
           {/* </CardWrapper> */}
