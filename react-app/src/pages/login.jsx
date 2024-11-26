@@ -5,7 +5,8 @@ import TextButton from "../components/text_button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import axios from "axios";
+
+import { login } from "../apis/user";
 
 const Container = styled.div`
   display: flex;
@@ -63,36 +64,13 @@ function Login() {
   const [password, setPassword] = useState("");
   const { setLogin, isLoggedIn } = useAuth();
 
-  const login = (email, password) => {
-    return axios
-      .post(
-        "api/user/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => response.data)
-      .catch((error) => {
-        throw error;
-      });
-  };
-
-  // const handleLogin = async () => {
-  //   await login(email, password).then((data) => {
-  //     setLogin();
-  //   });
-  // };
   const handleLogin = async () => {
     try {
-      const response = await login(email, password);
+      await login(email, password);
       setLogin();
       navigate("/home");
     } catch (error) {
-      alert("Login failed" + );
+      alert("Login failed" + error);
       console.log("Login failed");
     }
   };
