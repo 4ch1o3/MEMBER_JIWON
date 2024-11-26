@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import TextButton from "../components/text_button";
 import { StyledInboxCardWrapper } from "../components/layout";
 import axiosInstance from "../utils/axiosInstance";
+import { getReceivedAnswer, getReceivedQuestion } from "../apis/qna";
 
 const InboxProfile = ({ name, bio }) => {
   return (
@@ -32,11 +33,11 @@ const InboxProfile = ({ name, bio }) => {
   );
 };
 
-const InboxCardWrapper = ({ name, bio, onClick }) => {
+const InboxCardWrapper = ({ user, content, onClick }) => {
   return (
     <StyledInboxCardWrapper>
-      <InboxProfile name={name} bio={bio}></InboxProfile>
-      <StyledQuestionContent>이것은 질문입니다.</StyledQuestionContent>
+      <InboxProfile name={user.name} bio={user.bio}></InboxProfile>
+      <StyledQuestionContent>{content}</StyledQuestionContent>
       <Button on="true" onClick={onClick}>
         답변하기
       </Button>
@@ -44,39 +45,72 @@ const InboxCardWrapper = ({ name, bio, onClick }) => {
   );
 };
 
-const StyledSection = styled.div``;
+const StyledSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
 
-const QuestionSection = ({ user }) => {
-  const newCount = 1;
-  const oldCount = 0;
-
+const QuestionSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [answeredCount, setAnsweredCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+
+  const fetchQuestions = async () => {
+    try {
+      const receivedQuestions = await getReceivedQuestion();
+      // console.log(receivedQuestions);
+      setQuestions(receivedQuestions);
+      setTotalCount(receivedQuestions.length);
+    } catch (error) {
+      console.error("Error on fetching received question", error);
+    }
+  };
+
+  /* temp */
+  const updateAnsweredCount = () => {
+    const count = questions.filter((question) => question.isAnswered).length;
+    setAnsweredCount(count);
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+  }, []);
+
+  useEffect(() => {
+    updateAnsweredCount();
+  }, [questions]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const pendingCount = totalCount - answeredCount;
+
   return (
     <StyledSection>
-      <Subtitle>내 답변을 기다리는 질문 ({newCount})</Subtitle>
-      {newCount === 0 ? (
-        "새로운 질문이 없습니다!"
-      ) : (
-        <InboxCardWrapper
-          name={user.name}
-          bio={user.bio}
-          onClick={toggleModal}
-        />
-      )}
-      {isModalOpen && (
+      <Subtitle>내 답변을 기다리는 질문 ({pendingCount})</Subtitle>
+      {pendingCount === 0
+        ? "새로운 질문이 없습니다!"
+        : questions.map((question) => {
+            <InboxCardWrapper
+              key={question.key}
+              user={question.user}
+              content={question.content}
+            />;
+          })}
+
+      {/* {isModalOpen && (
         <ViewAnswerModal
           name={user.name}
           bio={user.bio}
           onClose={toggleModal}
         />
-      )}
-      <Subtitle>답변을 보낸 질문 ({oldCount})</Subtitle>
-      {oldCount === 0 && "아직 답변한 질문이 없습니다!"}
+      )} */}
+
+      {/* <Subtitle>답변을 보낸 질문 ({oldCount})</Subtitle>
+      {oldCount === 0 && "아직 답변한 질문이 없습니다!"} */}
     </StyledSection>
   );
 };
@@ -108,24 +142,20 @@ const AnswerSection = () => {
   );
 };
 
-const Inbox = ({ onClick }) => {
+const Inbox = () => {
   // only for displaying
   //   const testQuestionList = [{ id: 1, name: "이지원", bio: "이것 뭐에요?" }];
-
-  const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchQuestions = async () => {};
-  });
-
-  const [activeMenu, setActiveMenu] = useState("question");
-
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/");
     }
   });
+
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const [activeMenu, setActiveMenu] = useState("question");
+
   return (
     <AlignCenter>
       <NavBar></NavBar>
