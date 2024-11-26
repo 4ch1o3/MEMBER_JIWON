@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+/* this is for long input */
 const StyledInput = styled.input`
   font-size: var(--detail-font);
   font-weight: 300;
@@ -11,8 +12,23 @@ const StyledInput = styled.input`
   text-align: left;
 `;
 
-function InputField({ label, placeholder }) {
+export function InputField({ label, placeholder }) {
   return <StyledInput type="text" placeholder={placeholder} />;
 }
 
-export default InputField;
+/* this is for id, pw form */
+export const InputForm = styled.input.attrs((props) => ({
+  type: props.type === "pw" ? "password" : "text",
+  placeholder: props.type === "pw" ? "PW" : "ID",
+}))`
+  color: var(--black);
+  // font-size: 14px;
+  padding: 16px;
+  border: 0.5px solid;
+  border-color: var(--primary);
+  border-radius: 17px;
+
+  align-self: stretch;
+  width: 240px;
+  height: 34px;
+`;

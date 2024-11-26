@@ -21,6 +21,15 @@ export const CardContainer = styled.div`
   border-radius: 16px;
 `;
 
+export const StyledInboxCardWrapper = styled.div`
+  height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+`;
+
 export const CardWrapper = styled.div`
   display: flex;
   flex-direction: row;

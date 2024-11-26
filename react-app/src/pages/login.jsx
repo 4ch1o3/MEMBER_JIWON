@@ -1,4 +1,6 @@
 import styled from "styled-components";
+
+import { InputForm } from "../components/input_field";
 import TextButton from "../components/text_button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -28,22 +30,6 @@ const LoginPageTitle = styled.div`
   font-weight: 900;
   font-size: 64px;
   margin: 144px;
-`;
-
-const InputForm = styled.input.attrs((props) => ({
-  type: props.type === "pw" ? "password" : "text",
-  placeholder: props.type === "pw" ? "PW" : "ID",
-}))`
-  color: var(--black);
-  // font-size: 14px;
-  padding: 16px;
-  border: 0.5px solid;
-  border-color: var(--primary);
-  border-radius: 17px;
-
-  align-self: stretch;
-  width: 240px;
-  height: 34px;
 `;
 
 const FormContainer = styled.div`
@@ -106,7 +92,8 @@ function Login() {
       setLogin();
       navigate("/home");
     } catch (error) {
-      console.error("Login failed");
+      alert("Login failed" + );
+      console.log("Login failed");
     }
   };
 

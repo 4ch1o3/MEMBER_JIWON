@@ -20,17 +20,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import TextButton from "../components/text_button";
-
+import { StyledInboxCardWrapper } from "../components/layout";
 import axiosInstance from "../utils/axiosInstance";
-
-const StyledInboxCardWrapper = styled.div`
-  height: fit-content;
-
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  align-items: center;
-`;
 
 const InboxProfile = ({ name, bio }) => {
   return (

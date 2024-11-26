@@ -4,7 +4,7 @@ import Button from "./button";
 import UserInfo from "./user_info";
 import TextButton from "./text_button";
 import ModalBackground from "./modal_background";
-import InputField from "./input_field";
+import { InputField } from "./input_field";
 // import ProfileCard from "./profile_card";
 
 import { useState } from "react";
