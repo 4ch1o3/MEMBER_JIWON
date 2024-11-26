@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { AlignCenter, AlignRow } from "../components/layout";
+import { AlignCenter, AlignRow, FullWidth } from "../components/layout";
 import { Layout } from "../components/layout";
 import { CardContainer } from "../components/layout";
 import NavBar from "../components/navbar";
@@ -49,6 +49,7 @@ export const StyledSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 16px;
 `;
 
 const Inbox = () => {
@@ -77,16 +78,22 @@ const Inbox = () => {
           on={"true"}
         ></TitleArea>
         <CardContainer>
-          <AlignRow>
-            <TextButton onClick={() => setActiveMenu("question")}>
-              질문
-            </TextButton>
-            <TextButton onClick={() => setActiveMenu("answer")}>
-              답변
-            </TextButton>
-          </AlignRow>
+          <FullWidth>
+            <AlignRow>
+              <TextButton onClick={() => setActiveMenu("question")}>
+                질문
+              </TextButton>
+              <TextButton onClick={() => setActiveMenu("answer")}>
+                답변
+              </TextButton>
+            </AlignRow>
 
-          {activeMenu === "question" ? <QuestionSection /> : <AnswerSection />}
+            {activeMenu === "question" ? (
+              <QuestionSection />
+            ) : (
+              <AnswerSection />
+            )}
+          </FullWidth>
         </CardContainer>
       </Layout>
     </AlignCenter>

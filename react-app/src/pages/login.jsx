@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 import { login } from "../apis/user";
+import { AlignRow } from "../components/layout";
 
 const Container = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 32px;
 `;
 
 const LoginPageTitle = styled.div`
@@ -77,7 +79,7 @@ function Login() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/");
+      navigate("/home");
     }
     console.log("isLoggedIn: ", isLoggedIn);
   }, [isLoggedIn, navigate]);

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { getProfile } from "../apis/user";
 
 import {
   AlignCenter,
@@ -35,11 +37,28 @@ const StatsWrapper = styled.div`
 `;
 
 const MyPage = () => {
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const profile = await getProfile();
+        setProfile(profile);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
   return (
     <AlignCenter>
       <NavBar></NavBar>
       <Layout>
-        <TitleArea title="My Page" subtitle="만드는 중" on={"true"}></TitleArea>
+        <TitleArea
+          title="My Page"
+          subtitle="내 정보 및 설정"
+          on={"true"}
+        ></TitleArea>
         <AlignRow>
           <AlignColumn>
             <CardContainer>
@@ -49,7 +68,6 @@ const MyPage = () => {
                 <TextButton children={"프로필 사진 변경"}></TextButton>
                 <TextButton children={"자기소개 변경"}></TextButton>
                 <TextButton children={"공개 범위 설정"}></TextButton>
-                <TextButton></TextButton>
               </AlignColumn>
             </CardContainer>
             <CardContainer>
@@ -64,6 +82,7 @@ const MyPage = () => {
           <CardContainer>
             <Subtitle children="나의 활동"></Subtitle>
             <AlignRow>
+              {/* TODO: fetch qna data and put answered question/answer rate to percent */}
               <ProgressBar percent={75}></ProgressBar>
               <ProgressBar percent={75}></ProgressBar>
             </AlignRow>
