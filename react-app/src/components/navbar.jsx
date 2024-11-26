@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { logout } from "../apis/user";
 
 const StyledNavBar = styled.div`
   display: flex;
@@ -47,7 +48,7 @@ const StyledNavMenu = styled.div`
 
 const NavBar = ({ menu }) => {
   const navigate = useNavigate();
-  const { logout, isLoggedIn } = useAuth();
+  const { setLogout, isLoggedIn } = useAuth();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -61,6 +62,7 @@ const NavBar = ({ menu }) => {
           onClick={() => {
             if (navMenu.name === "Logout") {
               logout();
+              setLogout();
             } else {
               navigate(`/${navMenu.name.toLowerCase()}`);
             }
