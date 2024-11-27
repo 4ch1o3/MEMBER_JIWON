@@ -63,6 +63,8 @@ const NavBar = ({ menu }) => {
             if (navMenu.name === "Logout") {
               logout();
               setLogout();
+            } else if (navMenu.name === "Home") {
+              navigate("/");
             } else {
               navigate(`/${navMenu.name.toLowerCase()}`);
             }
