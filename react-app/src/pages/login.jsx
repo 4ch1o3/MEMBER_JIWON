@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 import { login } from "../apis/user";
-import { AlignRow } from "../components/layout";
 
 export const Container = styled.div`
   display: flex;
