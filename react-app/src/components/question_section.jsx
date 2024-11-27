@@ -59,11 +59,7 @@ const QuestionSection = () => {
         : questions.map((question) => (
             <InboxCardWrapper
               key={question.key}
-              questionId={question.questionId}
-              authorId={question.authorId}
-              targetId={question.targetId}
-              content={question.content}
-              answer={question.answer}
+              question={question}
               onClick={() => handleModalOpen(question)}
             />
           ))}

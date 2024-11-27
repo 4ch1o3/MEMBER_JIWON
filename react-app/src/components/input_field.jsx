@@ -12,8 +12,10 @@ const StyledInput = styled.input`
   text-align: left;
 `;
 
-export function InputField({ label, placeholder }) {
-  return <StyledInput type="text" placeholder={placeholder} />;
+export function InputField({ placeholder, onChange }) {
+  return (
+    <StyledInput type="text" placeholder={placeholder} onChange={onChange} />
+  );
 }
 
 /* this is for id, pw form */
