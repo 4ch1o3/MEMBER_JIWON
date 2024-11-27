@@ -76,3 +76,7 @@ export const Layout = styled.div`
 export const FullWidth = styled.div`
   width: 1568px;
 `;
+
+export const FullHeight = styled.div`
+  min-height: 540px;
+`;
