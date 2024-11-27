@@ -25,10 +25,10 @@ const QuestionCount = styled.div`
   align-self: stretch;
 `;
 
-const UserInfo = ({ username, bio, questionCount }) => {
+const UserInfo = ({ profileName, bio, questionCount }) => {
   return (
     <StyledUserInfo>
-      <UserName>{username}</UserName>
+      <UserName>{profileName}</UserName>
       <UserBio>{bio}</UserBio>
       {questionCount !== -1 && (
         <QuestionCount>받은 질문 {questionCount}개</QuestionCount>

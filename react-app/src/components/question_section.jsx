@@ -17,7 +17,6 @@ const QuestionSection = () => {
   const fetchQuestions = async () => {
     try {
       const receivedQuestions = await getReceivedQuestion();
-      console.log(receivedQuestions);
       setQuestions(receivedQuestions);
       setTotalCount(receivedQuestions.length);
     } catch (error) {
@@ -48,6 +47,7 @@ const QuestionSection = () => {
 
   const handleModalOpen = (data) => {
     setModalData(data);
+    console.log(data);
     setIsModalOpen();
   };
 
@@ -58,25 +58,21 @@ const QuestionSection = () => {
         ? "새로운 질문이 없습니다!"
         : questions.map((question) => (
             <InboxCardWrapper
-              key={question.key}
+              key={question.questionId}
               question={question}
               onClick={() => handleModalOpen(question)}
             />
           ))}
 
-      {isModalOpen && modalData && (
+      {!isModalOpen && (
         <AnswerModal
-          key={modalData.key}
-          id={modalData.id}
-          name={modalData.user.username}
-          email={modalData.user.email}
-          bio={modalData.user.bio}
-          questionCount={modalData.receivedQuestionCount}
+          key={modalData.questionId}
+          answerTargetId={modalData.authorId}
         />
       )}
 
-      {/* <Subtitle>답변을 보낸 질문 ({oldCount})</Subtitle>
-      {oldCount === 0 && "아직 답변한 질문이 없습니다!"} */}
+      <Subtitle>답변을 보낸 질문 ({answeredCount})</Subtitle>
+      {answeredCount === 0 && "아직 답변한 질문이 없습니다!"}
     </StyledSection>
   );
 };
