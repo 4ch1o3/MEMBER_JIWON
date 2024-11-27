@@ -27,7 +27,7 @@ const ProgressBar = ({ percent }) => {
       fontColor="var(--black)"
       percent={percent}
       round
-      stroke={6}
+      stroke={4}
       strokeBottom={10}
       linearGradient={["#30cfd0", "#330867"]}
     ></CircularProgressBar>
@@ -126,18 +126,42 @@ const MyPage = () => {
           </AlignColumn>
 
           <CardContainer>
-            <Subtitle children="나의 활동"></Subtitle>
-            <AlignRow>
-              {/* TODO: fetch qna data a율d put answered question/answer rate to percent */}
-              <AlignColumn>
-                나의 답변율
-                <ProgressBar percent={myAnswerRate}></ProgressBar>
-              </AlignColumn>
-              <AlignColumn>
-                내 질문에 대한 답변율
-                <ProgressBar percent={receivedAnswerRate}></ProgressBar>
-              </AlignColumn>
-            </AlignRow>
+            <AlignColumn>
+              <Subtitle children="나의 활동"></Subtitle>
+              <AlignRow>
+                <AlignColumn>
+                  내가 보낸 질문: {sentCount}개
+                  <br />
+                  <br />
+                  내가 받은 질문: {receivedCount}개
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  내가 받은 답변: {answeredByOthersCount}개
+                  <br />
+                  <br />
+                  내가 보낸 답변: {answeredCount}개
+                </AlignColumn>
+                <AlignColumn></AlignColumn>
+
+                <AlignColumn>
+                  <AlignCenter>
+                    나의 답변율
+                    <ProgressBar percent={myAnswerRate}></ProgressBar>
+                  </AlignCenter>
+                </AlignColumn>
+                <AlignColumn>
+                  <AlignCenter>
+                    내 질문에 대한 답변율
+                    <ProgressBar percent={receivedAnswerRate}></ProgressBar>
+                  </AlignCenter>
+                </AlignColumn>
+              </AlignRow>
+            </AlignColumn>
+          </CardContainer>
+          <CardContainer>
+            {/* <Subtitle>최근 받은 답변</Subtitle> */}
           </CardContainer>
         </AlignRow>
       </Layout>
