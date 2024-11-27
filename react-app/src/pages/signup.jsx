@@ -24,7 +24,7 @@ function SignUp() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      // navigate("/home");
+      // navigate("/");
     }
   });
 

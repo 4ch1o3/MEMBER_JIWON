@@ -23,6 +23,7 @@ export const CardContainer = styled.div`
 `;
 
 export const StyledInboxCardWrapper = styled.div`
+  width: 100%;
   height: fit-content;
 
   display: flex;
@@ -78,5 +79,5 @@ export const FullWidth = styled.div`
 `;
 
 export const FullHeight = styled.div`
-  min-height: 540px;
+  min-height: 265px;
 `;

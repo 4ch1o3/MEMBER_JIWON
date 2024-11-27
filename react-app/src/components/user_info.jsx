@@ -25,7 +25,7 @@ const QuestionCount = styled.div`
   align-self: stretch;
 `;
 
-const UserInfo = ({ profileName, bio, questionCount }) => {
+const UserInfo = ({ id, profileName, bio, questionCount }) => {
   return (
     <StyledUserInfo>
       <UserName>{profileName}</UserName>

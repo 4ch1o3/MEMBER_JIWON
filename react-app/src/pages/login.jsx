@@ -76,12 +76,12 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-    console.log("isLoggedIn: ", isLoggedIn);
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate("/");
+  //   }
+  //   console.log("isLoggedIn: ", isLoggedIn);
+  // }, [isLoggedIn, navigate]);
 
   return (
     <Container>

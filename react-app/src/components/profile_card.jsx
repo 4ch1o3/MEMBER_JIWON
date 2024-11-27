@@ -57,29 +57,21 @@ const ProfileCard = ({ profile, onClick }) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const user = {
-    id: profile.id,
-    username: profile.username,
-    bio: profile.bio,
-    receivedQuestionCount: profile.receivedQuestionCount,
-    email: profile.email,
-  };
-
   return (
     <>
       <StyledProfileCard onClick={toggleModal}>
         <ProfilePic></ProfilePic>
         <Profile>
           <UserInfo
-            id={user.id}
-            username={user.username}
-            bio={user.bio}
-            questionCount={user.receivedQuestionCount}
-            email={user.email}
+            id={profile.id}
+            profileName={profile.username}
+            bio={profile.bio}
+            questionCount={profile.receivedQuestionCount}
+            // email={profile.email}
           ></UserInfo>
         </Profile>
       </StyledProfileCard>
-      {isModalOpen && <QuestionModal user={user} onClose={toggleModal} />}
+      {isModalOpen && <QuestionModal user={profile} onClose={toggleModal} />}
     </>
   );
 };

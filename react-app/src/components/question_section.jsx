@@ -14,6 +14,10 @@ const QuestionSection = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [modalData, setModalData] = useState(null);
 
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   const fetchQuestions = async () => {
     try {
       const receivedQuestions = await getReceivedQuestion();
@@ -26,7 +30,9 @@ const QuestionSection = () => {
 
   /* temp */
   const updateAnsweredCount = () => {
-    const count = questions.filter((question) => question.isAnswered).length;
+    const count = questions.filter(
+      (question) => question.answer !== null
+    ).length;
     setAnsweredCount(count);
   };
 
@@ -37,17 +43,12 @@ const QuestionSection = () => {
 
   useEffect(() => {
     updateAnsweredCount();
-  }, [questions]);
-
-  // const toggleModal = () => {
-  //   setIsModalOpen(!isModalOpen);
-  // };
+  });
 
   const pendingCount = totalCount - answeredCount;
 
   const handleModalOpen = (data) => {
     setModalData(data);
-    console.log(data);
     setIsModalOpen();
   };
 
@@ -56,23 +57,34 @@ const QuestionSection = () => {
       <Subtitle>내 답변을 기다리는 질문 ({pendingCount})</Subtitle>
       {pendingCount === 0
         ? "새로운 질문이 없습니다!"
-        : questions.map((question) => (
-            <InboxCardWrapper
-              key={question.questionId}
-              question={question}
-              onClick={() => handleModalOpen(question)}
-            />
-          ))}
+        : questions
+            .filter((question) => question.answer === null)
+            .map((question) => (
+              <InboxCardWrapper
+                key={question.questionId}
+                question={question}
+                onClick={() => handleModalOpen(question)}
+                buttonContent={"답변하기"}
+              />
+            ))}
 
-      {!isModalOpen && (
-        <AnswerModal
-          key={modalData.questionId}
-          answerTargetId={modalData.authorId}
-        />
+      {!isModalOpen && modalData && (
+        <AnswerModal question={modalData} onClose={toggleModal} />
       )}
 
       <Subtitle>답변을 보낸 질문 ({answeredCount})</Subtitle>
-      {answeredCount === 0 && "아직 답변한 질문이 없습니다!"}
+      {answeredCount === 0
+        ? "아직 답변한 질문이 없습니다!"
+        : questions
+            .filter((question) => question.answer !== null)
+            .map((question) => (
+              <InboxCardWrapper
+                key={question.questionId}
+                question={question}
+                onClick={() => handleModalOpen(question)}
+                buttonContent={"답변 더하기"}
+              />
+            ))}
     </StyledSection>
   );
 };

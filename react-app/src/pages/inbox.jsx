@@ -25,37 +25,64 @@ import QuestionSection from "../components/question_section";
 import AnswerSection from "../components/answer_section";
 import { getUser } from "../apis/user";
 
-const InboxProfile = ({ authorId }) => {
-  const authorProfile = async (authorId) => {
-    await getUser(authorId);
-  };
-
+export const InboxProfile = ({ authorName, authorBio }) => {
   return (
     <ModalProfile>
       <ModalProfilePic></ModalProfilePic>
       <UserInfo
-        profileName={authorProfile.username}
-        bio={authorProfile.bio}
+        profileName={authorName}
+        bio={authorBio}
         questionCount={-1}
       ></UserInfo>
     </ModalProfile>
   );
 };
 
+const AuthorProfileContainer = styled.div`
+  width: 296px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const InboxCardWrapper = ({
-  authorId,
-  targetId,
-  content,
+  question,
   answer,
   onClick,
+  buttonContent,
 }) => {
+  const [bio, setBio] = useState("");
+
+  useEffect(() => {
+    async function fetchAllUsers() {
+      try {
+        const data = await getUser(
+          question ? question.authorId : answer.authorId
+        );
+        setBio(data.bio);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchAllUsers();
+  }, []);
+
   return (
     <StyledInboxCardWrapper>
-      <InboxProfile authorId={authorId}></InboxProfile>
-      <StyledQuestionContent>{content}</StyledQuestionContent>
-      <Button on="true" onClick={onClick}>
-        답변하기
-      </Button>
+      <AuthorProfileContainer>
+        <InboxProfile
+          authorName={question ? question.author : answer.author}
+          authorBio={bio}
+        ></InboxProfile>
+      </AuthorProfileContainer>
+
+      <StyledQuestionContent>
+        {question ? question.content : answer.content}
+      </StyledQuestionContent>
+      {buttonContent && (
+        <Button on="true" onClick={onClick} children={buttonContent}></Button>
+      )}
     </StyledInboxCardWrapper>
   );
 };

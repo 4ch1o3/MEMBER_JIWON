@@ -5,15 +5,21 @@ import { Subtitle } from "./subtitle";
 import { StyledSection } from "../pages/inbox";
 import { InboxCardWrapper } from "../pages/inbox";
 
+import { ViewAnswerModal } from "./modal";
+
 const AnswerSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+  const [modalData, setModalData] = useState(null);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const fetchAnswers = async () => {
     try {
       const receivedAnswers = await getReceivedAnswer();
-      //   console.log(receivedAnswers);
       setAnswers(receivedAnswers);
       setTotalCount(receivedAnswers.length);
     } catch (error) {
@@ -25,31 +31,32 @@ const AnswerSection = () => {
     fetchAnswers();
   }, []);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  // const toggleModal = () => {
+  //   setIsModalOpen(!isModalOpen);
+  // };
 
+  const handleModalOpen = (data) => {
+    setModalData(data);
+    setIsModalOpen();
+  };
+  console.log(answers);
   return (
     <StyledSection>
       <Subtitle>내가 받은 답변 ({totalCount})</Subtitle>
       {totalCount === 0
         ? "새로운 답변이 없습니다!"
-        : answers.map((answer) => {
+        : answers.map((answer) => (
             <InboxCardWrapper
-              key={answer.key}
-              user={answer.user}
-              content={answer.content}
-              onClick={toggleModal}
-            />;
-          })}
+              key={answer}
+              answer={answer}
+              onClick={() => handleModalOpen(answer)}
+              buttonContent="답변 보기"
+            />
+          ))}
 
-      {/* {isModalOpen && (
-        <ViewAnswerModal
-          name={user.name}
-          bio={user.bio}
-          onClose={toggleModal}
-        />
-      )} */}
+      {!isModalOpen && modalData && (
+        <ViewAnswerModal question={modalData} onClose={toggleModal} />
+      )}
     </StyledSection>
   );
 };

@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "./GlobalStyle";
 import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LoginPage from "./pages/login.jsx";
@@ -15,6 +16,7 @@ import MyPage from "./pages/mypage.jsx";
 import SignUp from "./pages/signup.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <AuthProvider>
@@ -23,7 +25,7 @@ root.render(
         <App />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" index element={<Home />} />
           <Route path="/inbox" element={<Inbox />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/signup" element={<SignUp />} />

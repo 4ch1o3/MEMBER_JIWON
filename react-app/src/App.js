@@ -4,14 +4,11 @@ import styled from "styled-components";
 
 import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 // import NavBar from "./components/navbar.jsx";
 
 const Layout = styled.div``;
 
-function App() {
-  return <Layout></Layout>;
-}
+function App() {}
 
 export default App;

@@ -5,6 +5,7 @@ import UserInfo from "./user_info";
 import TextButton from "./text_button";
 import ModalBackground from "./modal_background";
 import { InputField } from "./input_field";
+import { InboxCardWrapper, InboxProfile } from "../pages/inbox";
 // import ProfileCard from "./profile_card";
 
 import { useState } from "react";
@@ -15,6 +16,7 @@ import { useLocation } from "react-router-dom";
 
 import { getUser } from "../apis/user";
 import { createAnswer, createQuestion } from "../apis/qna";
+import { FullHeight } from "./layout";
 
 const StyledModalContainer = styled.div`
   width: 100%;
@@ -65,7 +67,8 @@ export const StyledQuestionContent = styled.div`
   background-color: var(--white);
   
   width: 100%;
-  height: 77px;
+  height: 100%;
+  min-height: 77px;
   
   border-radius: 16px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1),
@@ -106,10 +109,14 @@ export const QuestionModal = ({ user, onClose }) => {
 
   const handleSubmit = async () => {
     try {
-      await createQuestion({ targetId: user.id, content });
-      alert("질문을 성공적으로 보냈습니다!");
-      onClose();
-      navigate("/");
+      if (content !== "") {
+        await createQuestion({ targetId: user.id, content });
+        alert("질문을 성공적으로 보냈습니다!");
+        onClose();
+        navigate("/");
+      } else {
+        alert("내용을 작성해주세요.");
+      }
     } catch (error) {
       console.error(error);
       alert("질문을 작성하는 데 실패했습니다. 다시 시도해주세요.");
@@ -128,7 +135,7 @@ export const QuestionModal = ({ user, onClose }) => {
           <UserInfo
             id={user.id}
             email={user.email}
-            username={user.username}
+            profileName={user.username}
             bio={user.bio}
             questionCount={-1}
           ></UserInfo>
@@ -153,20 +160,63 @@ export const QuestionModal = ({ user, onClose }) => {
   );
 };
 
-export const AnswerModal = ({ answerTargetId, onClose }) => {
+// export const AnswerModal = ({ answerTargetId, onClose }) => {
+
+//   return (
+//     <ModalBackground onClick={onClose}>
+//       <StyledModalContainer onClick={(e) => e.stopPropagation()}>
+//         <ModalProfile>
+//           <ModalProfilePic></ModalProfilePic>
+//           <UserInfo
+//             id={answerTargetId.id}
+//             email={answerTargetId.email}
+//             profileName={answerTargetId.username}
+//             bio={answerTargetId.bio}
+//             questionCount={-1}
+//           ></UserInfo>
+//         </ModalProfile>
+//         <StyledQuestionContent>
+//           <InputField
+//             placeholder={"질문을 입력하세요."}
+//             onChange={(e) => {
+//               setContent(e.target.value);
+//               // console.log(e);
+//             }}
+//           ></InputField>
+//         </StyledQuestionContent>
+//         <ButtonSet>
+//           <Button onClick={onClose}>작성 취소</Button>
+//           <Button on={"true"} onClick={handleSubmit}>
+//             질문 보내기
+//           </Button>
+//         </ButtonSet>
+//       </StyledModalContainer>
+//     </ModalBackground>
+//   );
+// };
+
+export const AnswerModal = ({ question, onClose }) => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [content, setContent] = useState("");
 
+  useEffect(() => {
+    console.log(question);
+  }, []);
+
   const handleSubmit = async () => {
     try {
-      await createAnswer({ targetId: answerTargetId, content });
-      alert("질문을 성공적으로 보냈습니다!");
-      onClose();
-      navigate("/");
+      if (content !== "") {
+        await createAnswer({ questionId: question.questionId, content });
+        alert("답변을 성공적으로 보냈습니다!");
+        onClose();
+        navigate("/");
+      } else {
+        alert("내용을 작성해주세요.");
+      }
     } catch (error) {
       console.error(error);
-      alert("질문을 작성하는 데 실패했습니다. 다시 시도해주세요.");
+      alert("답변을 작성하는 데 실패했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -177,29 +227,32 @@ export const AnswerModal = ({ answerTargetId, onClose }) => {
   return (
     <ModalBackground onClick={onClose}>
       <StyledModalContainer onClick={(e) => e.stopPropagation()}>
-        <ModalProfile>
-          <ModalProfilePic></ModalProfilePic>
-          <UserInfo
-            id={answerTargetId.id}
-            email={answerTargetId.email}
-            username={answerTargetId.username}
-            bio={answerTargetId.bio}
-            questionCount={-1}
-          ></UserInfo>
-        </ModalProfile>
+        <InboxCardWrapper question={question}>
+          <InboxProfile authorName={question.author}>
+            <ModalProfilePic></ModalProfilePic>
+            <UserInfo
+              profileName={question.authorId}
+              bio={""}
+              questionCount={-1}
+            ></UserInfo>
+          </InboxProfile>
+          <StyledQuestionContent
+            children={question.content}
+          ></StyledQuestionContent>
+        </InboxCardWrapper>
+
         <StyledQuestionContent>
           <InputField
-            placeholder={"질문을 입력하세요."}
+            placeholder={"답변을 입력하세요."}
             onChange={(e) => {
               setContent(e.target.value);
-              // console.log(e);
             }}
           ></InputField>
         </StyledQuestionContent>
         <ButtonSet>
           <Button onClick={onClose}>작성 취소</Button>
           <Button on={"true"} onClick={handleSubmit}>
-            질문 보내기
+            답변 보내기
           </Button>
         </ButtonSet>
       </StyledModalContainer>
@@ -207,72 +260,66 @@ export const AnswerModal = ({ answerTargetId, onClose }) => {
   );
 };
 
-// export const AnswerModal = ({ user, onClose }) => {
-//   const { isLoggedIn } = useAuth();
-//   const navigate = useNavigate();
-
-//   const handleSubmit = async () => {
-//     try {
-//       await createAnswer({ targetId: user.id });
-//       alert("답변을 성공적으로 보냈습니다!");
-//     } catch (error) {
-//       console.error(error);
-//       alert("답변을 작성하는 데 실패했습니다. 다시 시도해주세요.");
-//     }
-//   };
-
-//   if (!isLoggedIn) {
-//     alert("로그인 후 이용해 주세요.");
-//     navigate("/login");
-//   }
+// export const ViewAnswerModal = ({ name, bio, onClose }) => {
 //   return (
 //     <ModalBackground onClick={onClose}>
 //       <StyledModalContainer onClick={(e) => e.stopPropagation()}>
-//         <ModalProfile>
-//           <ModalProfilePic></ModalProfilePic>
-//           <UserInfo
-//             name={user.name}
-//             bio={user.bio}
-//             questionCount={-1}
-//           ></UserInfo>
-//         </ModalProfile>
-//         <StyledQuestionContent>
-//           <InputField
-//             placeholder={"답변을 입력하세요."}
-//             onChange={(e) => {
-//               createQuestion(e.target.value);
-//             }}
-//           ></InputField>
-//         </StyledQuestionContent>
+//         <InlineProfileContainer>
+//           <ModalProfile>
+//             <ModalProfilePic></ModalProfilePic>
+//             <UserInfo name={name} bio={bio} questionCount={-1}></UserInfo>
+//           </ModalProfile>
+//           <StyledQuestionContent children="이것은 질문입니다."></StyledQuestionContent>
+//         </InlineProfileContainer>
+
+//
+//         <TextButton onClick={() => {}}>답변이 마음에 드셨나요?</TextButton>
 //         <ButtonSet>
-//           <Button onClick={onClose}>작성 취소</Button>
-//           <Button on={"true"} onClick={handleSubmit}>
-//             답변 보내기
-//           </Button>
+//           <Button onClick={onClose}>닫기</Button>
+//           <Button on={"true"}>질문 더하기</Button>
 //         </ButtonSet>
 //       </StyledModalContainer>
 //     </ModalBackground>
 //   );
 // };
 
-export const ViewAnswerModal = ({ name, bio, onClose }) => {
+export const ViewAnswerModal = ({ question, answer, onClose }) => {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(question);
+    console.log(answer);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      alert("로그인 후 이용해 주세요.");
+      navigate("/login");
+    }
+  });
+
   return (
     <ModalBackground onClick={onClose}>
       <StyledModalContainer onClick={(e) => e.stopPropagation()}>
-        <InlineProfileContainer>
-          <ModalProfile>
+        <InboxCardWrapper question={question}>
+          <InboxProfile authorName={question.author}>
             <ModalProfilePic></ModalProfilePic>
-            <UserInfo name={name} bio={bio} questionCount={-1}></UserInfo>
-          </ModalProfile>
+            <UserInfo
+              profileName={question ? question.author : answer.author}
+              bio={""}
+              questionCount={-1}
+            ></UserInfo>
+          </InboxProfile>
           <StyledQuestionContent children="이것은 질문입니다."></StyledQuestionContent>
-        </InlineProfileContainer>
+        </InboxCardWrapper>
 
-        <AnswerContent children="이것은 답변입니다."></AnswerContent>
+        <AnswerContent children={answer}></AnswerContent>
 
-        <TextButton onClick={() => {}}>답변이 마음에 드셨나요?</TextButton>
         <ButtonSet>
-          <Button onClick={onClose}>닫기</Button>
-          <Button on={"true"}>질문 더하기</Button>
+          <Button on="true" onClick={onClose}>
+            확인
+          </Button>
         </ButtonSet>
       </StyledModalContainer>
     </ModalBackground>
