@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useLocation } from "react-router-dom";
 
+import { getUser } from "../apis/user";
 import { createAnswer, createQuestion } from "../apis/qna";
 
 const StyledModalContainer = styled.div`
@@ -101,14 +102,16 @@ export const ModalProfilePic = styled.div`
 export const QuestionModal = ({ user, onClose }) => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const [content, setContent] = useState("");
 
   const handleSubmit = async () => {
     try {
-      await createQuestion({ targetId: user.id });
+      await createQuestion({ targetId: user.id, content });
       alert("질문을 성공적으로 보냈습니다!");
+      onClose();
+      navigate("/");
     } catch (error) {
       console.error(error);
-      // response: [object Object]
       alert("질문을 작성하는 데 실패했습니다. 다시 시도해주세요.");
     }
   };
@@ -123,7 +126,9 @@ export const QuestionModal = ({ user, onClose }) => {
         <ModalProfile>
           <ModalProfilePic></ModalProfilePic>
           <UserInfo
-            name={user.name}
+            id={user.id}
+            email={user.email}
+            username={user.username}
             bio={user.bio}
             questionCount={-1}
           ></UserInfo>
@@ -132,7 +137,7 @@ export const QuestionModal = ({ user, onClose }) => {
           <InputField
             placeholder={"질문을 입력하세요."}
             onChange={(e) => {
-              createQuestion(e.target.value);
+              setContent(e.target.value);
             }}
           ></InputField>
         </StyledQuestionContent>

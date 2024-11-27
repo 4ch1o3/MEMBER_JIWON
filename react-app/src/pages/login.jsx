@@ -70,16 +70,15 @@ function Login() {
     try {
       await login(email, password);
       setLogin();
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       alert("Login failed" + error);
-      console.log("Login failed");
     }
   };
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/home");
+      navigate("/");
     }
     console.log("isLoggedIn: ", isLoggedIn);
   }, [isLoggedIn, navigate]);
@@ -96,7 +95,7 @@ function Login() {
         <BlockTitle>Login</BlockTitle>
         <FormContainer>
           <InputForm
-            type="ID"
+            type="E-mail"
             required
             onChange={(e) => {
               setEmail(e.target.value);

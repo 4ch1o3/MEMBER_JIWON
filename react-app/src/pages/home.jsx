@@ -8,18 +8,28 @@ import { AlignCenter } from "../components/layout";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../apis/user";
 // import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 // import { QuestionModal } from "../components/modal";
 // import ModalBackground from "../components/modal_background";
 
 function Home() {
   const [profiles, setProfiles] = useState([]); // if none, empty array
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+    console.log("isLoggedIn: ", isLoggedIn);
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     async function fetchAllUsers() {
       try {
         const data = await getAllUsers();
         setProfiles(data);
-        // console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -41,13 +51,7 @@ function Home() {
           {/* <CardWrapper> */}
           {/* TODO: if profiles === []; show info text */}
           {profiles.map((profile) => (
-            <ProfileCard
-              key={profile.id}
-              name={profile.username}
-              email={profile.email}
-              bio={profile.bio}
-              questionCount={profile.receivedQuestionCount}
-            />
+            <ProfileCard key={profile.id} profile={profile} />
           ))}
           {/* </FullHeight> */}
 

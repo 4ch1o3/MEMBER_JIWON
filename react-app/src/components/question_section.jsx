@@ -17,7 +17,7 @@ const QuestionSection = () => {
   const fetchQuestions = async () => {
     try {
       const receivedQuestions = await getReceivedQuestion();
-      // console.log(receivedQuestions);
+      console.log(receivedQuestions);
       setQuestions(receivedQuestions);
       setTotalCount(receivedQuestions.length);
     } catch (error) {
@@ -33,15 +33,16 @@ const QuestionSection = () => {
 
   useEffect(() => {
     fetchQuestions();
+    // console.log(questions);
   }, []);
 
   useEffect(() => {
     updateAnsweredCount();
   }, [questions]);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  // const toggleModal = () => {
+  //   setIsModalOpen(!isModalOpen);
+  // };
 
   const pendingCount = totalCount - answeredCount;
 
@@ -55,18 +56,22 @@ const QuestionSection = () => {
       <Subtitle>내 답변을 기다리는 질문 ({pendingCount})</Subtitle>
       {pendingCount === 0
         ? "새로운 질문이 없습니다!"
-        : questions.map((question) => {
+        : questions.map((question) => (
             <InboxCardWrapper
               key={question.key}
-              user={question.user}
+              questionId={question.questionId}
+              authorId={question.authorId}
+              targetId={question.targetId}
               content={question.content}
+              answer={question.answer}
               onClick={() => handleModalOpen(question)}
-            />;
-          })}
+            />
+          ))}
 
       {isModalOpen && modalData && (
         <AnswerModal
-          key={modalData.user.id}
+          key={modalData.key}
+          id={modalData.id}
           name={modalData.user.username}
           email={modalData.user.email}
           bio={modalData.user.bio}

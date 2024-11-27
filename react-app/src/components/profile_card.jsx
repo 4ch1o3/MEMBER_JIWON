@@ -9,7 +9,7 @@ import { createQuestion } from "../apis/qna";
 const StyledProfileCard = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   padding: 16px;
   // margin: 16px;
@@ -17,7 +17,7 @@ const StyledProfileCard = styled.div`
 
   background: rgba(237, 237, 237, 0.25);
   border-radius: 16px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1),
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1),
     inset 2px 2px 4px rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(12px);
 
@@ -50,8 +50,7 @@ export const ProfilePic = styled.div`
   background: var(--button-secondary);
 `;
 
-const ProfileCard = ({ id, name, bio, questionCount, onClick }) => {
-  if (onClick) console.log("clicked"); // nothing shown
+const ProfileCard = ({ profile, onClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -59,11 +58,13 @@ const ProfileCard = ({ id, name, bio, questionCount, onClick }) => {
   };
 
   const user = {
-    id: id,
-    name: name,
-    bio: bio,
-    questionCount: questionCount,
+    id: profile.id,
+    username: profile.username,
+    bio: profile.bio,
+    receivedQuestionCount: profile.receivedQuestionCount,
+    email: profile.email,
   };
+
   return (
     <>
       <StyledProfileCard onClick={toggleModal}>
@@ -71,9 +72,10 @@ const ProfileCard = ({ id, name, bio, questionCount, onClick }) => {
         <Profile>
           <UserInfo
             id={user.id}
-            name={user.name}
+            username={user.username}
             bio={user.bio}
-            questionCount={user.questionCount}
+            questionCount={user.receivedQuestionCount}
+            email={user.email}
           ></UserInfo>
         </Profile>
       </StyledProfileCard>

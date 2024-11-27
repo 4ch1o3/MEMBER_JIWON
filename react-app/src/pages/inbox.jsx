@@ -23,20 +23,35 @@ import TextButton from "../components/text_button";
 import { StyledInboxCardWrapper } from "../components/layout";
 import QuestionSection from "../components/question_section";
 import AnswerSection from "../components/answer_section";
+import { getUser } from "../apis/user";
 
-const InboxProfile = ({ name, bio }) => {
+const InboxProfile = ({ authorId }) => {
+  const authorProfile = async (authorId) => {
+    await getUser(authorId);
+  };
+
   return (
     <ModalProfile>
       <ModalProfilePic></ModalProfilePic>
-      <UserInfo name={name} bio={bio} questionCount={-1}></UserInfo>
+      <UserInfo
+        profileName={authorProfile.username}
+        bio={authorProfile.bio}
+        questionCount={-1}
+      ></UserInfo>
     </ModalProfile>
   );
 };
 
-export const InboxCardWrapper = ({ user, content, onClick }) => {
+export const InboxCardWrapper = ({
+  authorId,
+  targetId,
+  content,
+  answer,
+  onClick,
+}) => {
   return (
     <StyledInboxCardWrapper>
-      <InboxProfile name={user.name} bio={user.bio}></InboxProfile>
+      <InboxProfile authorId={authorId}></InboxProfile>
       <StyledQuestionContent>{content}</StyledQuestionContent>
       <Button on="true" onClick={onClick}>
         답변하기
@@ -55,14 +70,14 @@ export const StyledSection = styled.div`
 const Inbox = () => {
   // only for displaying
   //   const testQuestionList = [{ id: 1, name: "이지원", bio: "이것 뭐에요?" }];
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/");
     }
   });
-
-  const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
 
   const [activeMenu, setActiveMenu] = useState("question");
 

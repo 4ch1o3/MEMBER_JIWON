@@ -11,15 +11,6 @@ import { useEffect } from "react";
 const Layout = styled.div``;
 
 function App() {
-  const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate("/");
-  //   }
-  //   console.log("isLoggedIn: ", isLoggedIn);
-  // }, [isLoggedIn, navigate]);
   return <Layout></Layout>;
 }
 

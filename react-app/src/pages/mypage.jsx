@@ -15,6 +15,9 @@ import { CircularProgressBar } from "@tomickigrzegorz/react-circular-progress-ba
 import { Subtitle } from "../components/subtitle";
 import TextButton from "../components/text_button";
 
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const ProgressBar = ({ percent }) => {
   return (
     <CircularProgressBar
@@ -38,6 +41,15 @@ const StatsWrapper = styled.div`
 
 const MyPage = () => {
   const [profile, setProfile] = useState(null);
+
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  });
 
   useEffect(() => {
     async function fetchData() {
