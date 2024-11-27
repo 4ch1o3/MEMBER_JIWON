@@ -72,16 +72,21 @@ function Login() {
       setLogin();
       navigate("/");
     } catch (error) {
-      alert("Login failed" + error);
+      alert("로그인에 실패하였습니다. 다시 시도해주세요.");
     }
   };
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate("/");
-  //   }
-  //   console.log("isLoggedIn: ", isLoggedIn);
-  // }, [isLoggedIn, navigate]);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  });
 
   return (
     <Container>
@@ -101,12 +106,14 @@ function Login() {
               setEmail(e.target.value);
               // console.log(e.target.value);
             }}
+            onKeyDown={handleKeyDown}
           ></InputForm>
           <InputForm
             placeholder="PW"
             type="pw"
             required
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyDown}
           ></InputForm>
         </FormContainer>
         <Wrapper>

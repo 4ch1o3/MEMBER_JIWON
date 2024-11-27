@@ -128,7 +128,7 @@ export const QuestionModal = ({ user, onClose }) => {
     <ModalBackground onClick={onClose}>
       <StyledModalContainer onClick={(e) => e.stopPropagation()}>
         <ModalProfile>
-          <ModalProfilePic></ModalProfilePic>
+          <ModalProfilePic id={user.id}></ModalProfilePic>
           <UserInfo
             id={user.id}
             email={user.email}
