@@ -12,7 +12,7 @@ import Home from "./pages/home.jsx";
 import Inbox from "./pages/inbox.jsx";
 import "./assets/fonts/fonts.css";
 import MyPage from "./pages/mypage.jsx";
-import NoMatch from "./pages/no_match.jsx";
+import SignUp from "./pages/signup.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,6 +26,7 @@ root.render(
           <Route path="/home" element={<Home />} />
           <Route path="/inbox" element={<Inbox />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

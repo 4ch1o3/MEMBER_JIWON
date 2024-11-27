@@ -19,7 +19,7 @@ export function InputField({ label, placeholder }) {
 /* this is for id, pw form */
 export const InputForm = styled.input.attrs((props) => ({
   type: props.type === "pw" ? "password" : "text",
-  placeholder: props.type === "pw" ? "PW" : "ID",
+  placeholder: props.placeholder || props.type,
 }))`
   color: var(--black);
   // font-size: 14px;

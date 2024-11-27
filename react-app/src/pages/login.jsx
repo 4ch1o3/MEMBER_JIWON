@@ -9,7 +9,7 @@ import { useAuth } from "../context/AuthContext";
 import { login } from "../apis/user";
 import { AlignRow } from "../components/layout";
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
@@ -19,13 +19,13 @@ const Container = styled.div`
   margin: 0;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 32px;
 `;
 
-const LoginPageTitle = styled.div`
+export const LoginPageTitle = styled.div`
   width: 436px;
 
   color: var(--white);
@@ -35,13 +35,13 @@ const LoginPageTitle = styled.div`
   margin: 144px;
 `;
 
-const FormContainer = styled.div`
+export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
 `;
 
-const LoginBlock = styled.div`
+export const LoginBlock = styled.div`
   background-color: var(--white);
   width: 280px;
   display: flex;
@@ -55,7 +55,7 @@ const LoginBlock = styled.div`
   gap: 24px;
 `;
 
-const BlockTitle = styled.div`
+export const BlockTitle = styled.div`
   font-weight: 700;
   font-size: var(--title-font);
 `;
@@ -96,7 +96,7 @@ function Login() {
         <BlockTitle>Login</BlockTitle>
         <FormContainer>
           <InputForm
-            type="id"
+            type="ID"
             required
             onChange={(e) => {
               setEmail(e.target.value);
@@ -104,6 +104,7 @@ function Login() {
             }}
           ></InputForm>
           <InputForm
+            placeholder="PW"
             type="pw"
             required
             onChange={(e) => setPassword(e.target.value)}

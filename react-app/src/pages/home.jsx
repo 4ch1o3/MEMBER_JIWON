@@ -2,7 +2,7 @@ import ProfileCard from "../components/profile_card";
 import NavBar from "../components/navbar";
 import { TitleArea } from "../components/title";
 
-import { Layout } from "../components/layout";
+import { FullHeight, Layout } from "../components/layout";
 import { CardContainer } from "../components/layout";
 import { AlignCenter } from "../components/layout";
 import { useEffect, useState } from "react";
@@ -35,8 +35,11 @@ function Home() {
           {/* <Title>Members</Title>
           <Subtitle></Subtitle> */}
         </TitleArea>
+
         <CardContainer align="row">
+          {/* <FullHeight> */}
           {/* <CardWrapper> */}
+          {/* TODO: if profiles === []; show info text */}
           {profiles.map((profile) => (
             <ProfileCard
               key={profile.id}
@@ -46,6 +49,8 @@ function Home() {
               questionCount={profile.receivedQuestionCount}
             />
           ))}
+          {/* </FullHeight> */}
+
           {/* </CardWrapper> */}
         </CardContainer>
       </Layout>

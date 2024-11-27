@@ -1,5 +1,19 @@
 import axiosInstance from "../utils/axiosInstance";
 
+export const signup = (username, password1, password2, email) => {
+  return axiosInstance
+    .post("/user/signup", {
+      username,
+      password1,
+      password2,
+      email,
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const login = (email, password) => {
   return axiosInstance
     .post("/user/login", {
