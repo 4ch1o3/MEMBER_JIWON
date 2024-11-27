@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getProfile } from "../apis/user";
+import { getReceivedQuestion, getSentQuestion } from "../apis/qna";
 
 import {
   AlignCenter,
@@ -17,7 +18,6 @@ import TextButton from "../components/text_button";
 
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
 const ProgressBar = ({ percent }) => {
   return (
     <CircularProgressBar
@@ -34,13 +34,12 @@ const ProgressBar = ({ percent }) => {
   );
 };
 
-const StatsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
 const MyPage = () => {
   const [profile, setProfile] = useState(null);
+  const [answeredCount, setAnsweredCount] = useState(0);
+  const [sentCount, setSentCount] = useState(0);
+  const [receivedCount, setReceivedCount] = useState(0);
+  const [answeredByOthersCount, setAnsweredByOthersCount] = useState(0);
 
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -54,14 +53,51 @@ const MyPage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const profile = await getProfile();
-        setProfile(profile);
+        const profileData = await getProfile();
+        setProfile(profileData);
+
+        await Promise.all([fetchReceived(), fetchSent()]);
       } catch (error) {
         console.error(error);
       }
     }
     fetchData();
   }, []);
+
+  const fetchReceived = async () => {
+    try {
+      const receivedQuestions = await getReceivedQuestion();
+      setReceivedCount(receivedQuestions.length);
+      const answeredQuestions = receivedQuestions.filter(
+        (question) => question.answer !== null
+      );
+      setAnsweredCount(answeredQuestions.length);
+    } catch (error) {
+      console.error("Failed to fetch received questions", error);
+    }
+  };
+
+  const fetchSent = async () => {
+    try {
+      const sentQuestions = await getSentQuestion();
+      setSentCount(sentQuestions.length);
+
+      const answeredByOthers = sentQuestions.filter(
+        (question) => question.answer !== null
+      );
+      setAnsweredByOthersCount(answeredByOthers.length);
+    } catch (error) {
+      console.error("Failed to fetch sent questions", error);
+    }
+  };
+
+  const myAnswerRate = receivedCount
+    ? (answeredCount / receivedCount) * 100
+    : 0;
+  const receivedAnswerRate = sentCount
+    ? (answeredByOthersCount / sentCount) * 100
+    : 0;
+
   return (
     <AlignCenter>
       <NavBar></NavBar>
@@ -79,14 +115,12 @@ const MyPage = () => {
                 <TextButton children={"아이디 / 비밀번호 변경"}></TextButton>
                 <TextButton children={"프로필 사진 변경"}></TextButton>
                 <TextButton children={"자기소개 변경"}></TextButton>
-                <TextButton children={"공개 범위 설정"}></TextButton>
               </AlignColumn>
             </CardContainer>
             <CardContainer>
               <AlignColumn>
                 <Subtitle children="나의 업적"></Subtitle>
-
-                <TextButton></TextButton>
+                업적을 획득해보세요!
               </AlignColumn>
             </CardContainer>
           </AlignColumn>
@@ -94,9 +128,15 @@ const MyPage = () => {
           <CardContainer>
             <Subtitle children="나의 활동"></Subtitle>
             <AlignRow>
-              {/* TODO: fetch qna data and put answered question/answer rate to percent */}
-              <ProgressBar percent={75}></ProgressBar>
-              <ProgressBar percent={75}></ProgressBar>
+              {/* TODO: fetch qna data a율d put answered question/answer rate to percent */}
+              <AlignColumn>
+                나의 답변율
+                <ProgressBar percent={myAnswerRate}></ProgressBar>
+              </AlignColumn>
+              <AlignColumn>
+                내 질문에 대한 답변율
+                <ProgressBar percent={receivedAnswerRate}></ProgressBar>
+              </AlignColumn>
             </AlignRow>
           </CardContainer>
         </AlignRow>
