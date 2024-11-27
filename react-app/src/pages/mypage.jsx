@@ -9,8 +9,6 @@ import {
   CardContainer,
   FixedHeight,
   FixedWidth,
-  FullHeight,
-  FullWidth,
   Layout,
 } from "../components/layout";
 import NavBar from "../components/navbar";
