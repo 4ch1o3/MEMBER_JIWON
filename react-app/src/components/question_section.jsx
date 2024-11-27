@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getReceivedQuestion } from "../apis/qna";
 
-import styled from "styled-components";
 import { Subtitle } from "./subtitle";
 import { StyledSection } from "../pages/inbox";
 import { InboxCardWrapper } from "../pages/inbox";

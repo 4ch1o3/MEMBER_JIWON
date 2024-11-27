@@ -2,7 +2,7 @@ import ProfileCard from "../components/profile_card";
 import NavBar from "../components/navbar";
 import { TitleArea } from "../components/title";
 
-import { FullHeight, Layout } from "../components/layout";
+import { FixedWidth, Layout } from "../components/layout";
 import { CardContainer } from "../components/layout";
 import { AlignCenter } from "../components/layout";
 import { useEffect, useState } from "react";
@@ -41,22 +41,24 @@ function Home() {
     <AlignCenter>
       <NavBar />
       <Layout>
-        <TitleArea title="Members" subtitle="누구에게 질문할까요?" on="true">
-          {/* <Title>Members</Title>
+        <FixedWidth>
+          <TitleArea title="Members" subtitle="누구에게 질문할까요?" on="true">
+            {/* <Title>Members</Title>
           <Subtitle></Subtitle> */}
-        </TitleArea>
+          </TitleArea>
 
-        <CardContainer align="row">
-          {/* <FullHeight> */}
-          {/* <CardWrapper> */}
-          {/* TODO: if profiles === []; show info text */}
-          {profiles.map((profile) => (
-            <ProfileCard key={profile.id} profile={profile} />
-          ))}
-          {/* </FullHeight> */}
+          <CardContainer align="row">
+            {/* <FullHeight> */}
+            {/* <CardWrapper> */}
+            {/* TODO: if profiles === []; show info text */}
+            {profiles.map((profile) => (
+              <ProfileCard key={profile.id} profile={profile} />
+            ))}
+            {/* </FullHeight> */}
 
-          {/* </CardWrapper> */}
-        </CardContainer>
+            {/* </CardWrapper> */}
+          </CardContainer>
+        </FixedWidth>
       </Layout>
     </AlignCenter>
   );

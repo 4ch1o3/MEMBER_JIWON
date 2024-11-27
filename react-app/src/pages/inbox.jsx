@@ -1,13 +1,10 @@
 import styled from "styled-components";
 
-import { AlignCenter, AlignRow, FullWidth } from "../components/layout";
+import { AlignCenter, AlignRow } from "../components/layout";
 import { Layout } from "../components/layout";
 import { CardContainer } from "../components/layout";
 import NavBar from "../components/navbar";
-import { Subtitle } from "../components/subtitle";
 import {
-  ViewAnswerModal,
-  AnswerModal,
   //   StyledAnswererProfile,
   StyledQuestionContent,
 } from "../components/modal";
@@ -20,7 +17,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import TextButton from "../components/text_button";
-import { StyledInboxCardWrapper } from "../components/layout";
+import { StyledInboxCardWrapper, FixedWidth } from "../components/layout";
 import QuestionSection from "../components/question_section";
 import AnswerSection from "../components/answer_section";
 import { getUser } from "../apis/user";
@@ -66,7 +63,7 @@ export const InboxCardWrapper = ({
       }
     }
     fetchAllUsers();
-  }, []);
+  });
 
   return (
     <StyledInboxCardWrapper>
@@ -111,16 +108,17 @@ const Inbox = () => {
   return (
     <AlignCenter>
       <NavBar></NavBar>
+
       <Layout>
-        <TitleArea
-          title="Inbox"
-          subtitle={
-            activeMenu === "question" ? "내가 받은 질문" : "내가 받은 답변"
-          }
-          on={"true"}
-        ></TitleArea>
-        <CardContainer>
-          <FullWidth>
+        <FixedWidth>
+          <TitleArea
+            title="Inbox"
+            subtitle={
+              activeMenu === "question" ? "내가 받은 질문" : "내가 받은 답변"
+            }
+            on={"true"}
+          ></TitleArea>
+          <CardContainer>
             <AlignRow>
               <TextButton onClick={() => setActiveMenu("question")}>
                 질문
@@ -135,8 +133,8 @@ const Inbox = () => {
             ) : (
               <AnswerSection />
             )}
-          </FullWidth>
-        </CardContainer>
+          </CardContainer>
+        </FixedWidth>
       </Layout>
     </AlignCenter>
   );

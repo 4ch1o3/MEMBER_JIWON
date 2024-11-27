@@ -19,7 +19,7 @@ const StyledNavBar = styled.div`
   height: 48px;
   left: 0px;
   top: 0px;
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 
   background: rgba(237, 237, 237, 0.25);
 

@@ -6,13 +6,14 @@ export const CardContainer = styled.div`
   flex-wrap: wrap;
 
   width: 100%;
+  height: 100%;
   min-width: fit-content;
 
   border-radius: 16px;
   background: var(--white);
 
   margin-top: 24px;
-  justify-content: center;
+  justify-content: start;
 
   gap: 16px;
   padding: 32px;
@@ -46,6 +47,7 @@ export const AlignCenter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const AlignRow = styled.div`
@@ -69,15 +71,26 @@ export const Layout = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  align-items: center;
+
   padding-left: 144px;
   padding-right: 144px;
   padding-bottom: 144px;
 `;
 
 export const FullWidth = styled.div`
-  width: 1568px;
+  width: 100%;
 `;
 
 export const FullHeight = styled.div`
   min-height: 265px;
+  height: 100%;
+`;
+
+export const FixedWidth = styled.div`
+  width: 1264px;
+`;
+
+export const FixedHeight = styled.div`
+  height: 380px;
 `;

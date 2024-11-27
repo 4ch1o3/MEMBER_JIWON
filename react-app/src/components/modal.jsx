@@ -2,7 +2,6 @@ import styled from "styled-components";
 import ButtonSet from "./button_set";
 import Button from "./button";
 import UserInfo from "./user_info";
-import TextButton from "./text_button";
 import ModalBackground from "./modal_background";
 import { InputField } from "./input_field";
 import { InboxCardWrapper, InboxProfile } from "../pages/inbox";
@@ -12,11 +11,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useLocation } from "react-router-dom";
 
-import { getUser } from "../apis/user";
 import { createAnswer, createQuestion } from "../apis/qna";
-import { FullHeight } from "./layout";
+import { getBackgroundColor } from "./profile_card";
 
 const StyledModalContainer = styled.div`
   width: 100%;
@@ -99,7 +96,7 @@ export const ModalProfilePic = styled.div`
   width: 45px;
   height: 45px;
   border-radius: 100%;
-  background: var(--button-secondary);
+  background-color: ${(props) => getBackgroundColor(props.id)};
 `;
 
 export const QuestionModal = ({ user, onClose }) => {
@@ -200,10 +197,6 @@ export const AnswerModal = ({ question, onClose }) => {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
 
-  useEffect(() => {
-    console.log(question);
-  }, []);
-
   const handleSubmit = async () => {
     try {
       if (content !== "") {
@@ -286,11 +279,6 @@ export const AnswerModal = ({ question, onClose }) => {
 export const ViewAnswerModal = ({ question, answer, onClose }) => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(question);
-    console.log(answer);
-  }, []);
 
   useEffect(() => {
     if (!isLoggedIn) {

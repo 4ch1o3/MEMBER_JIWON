@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import UserInfo from "./user_info";
-import { AnswerModal, QuestionModal } from "./modal";
-import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
-import { createQuestion } from "../apis/qna";
+import { QuestionModal } from "./modal";
+import { useState } from "react";
 
 const StyledProfileCard = styled.div`
   display: flex;
@@ -43,11 +40,46 @@ const Profile = styled.div`
   align-self: stretch;
 `;
 
+export const getBackgroundColor = (id) => {
+  switch (id % 4) {
+    case 0:
+      return "#979cbf";
+    case 1:
+      return "#98dae0";
+    case 2:
+      return "#97c3d4";
+    case 3:
+      return "#98b8d0";
+    default:
+      return "#9488C5";
+  }
+};
+
+// export const getProfileIcon = (id) => {
+//   switch (id % 4) {
+//     case 0:
+//       return "🐋";
+//     case 1:
+//       return "🦜";
+//     case 2:
+//       return "🌵";
+//     case 3:
+//       return "✨";
+//     default:
+//       return "🥞";
+//   }
+// };
+
 export const ProfilePic = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
   width: 80px;
   height: 80px;
+  flex-shrink: 0;
   border-radius: 100%;
-  background: var(--button-secondary);
+  background-color: ${(props) => getBackgroundColor(props.id)};
 `;
 
 const ProfileCard = ({ profile, onClick }) => {
@@ -60,7 +92,7 @@ const ProfileCard = ({ profile, onClick }) => {
   return (
     <>
       <StyledProfileCard onClick={toggleModal}>
-        <ProfilePic></ProfilePic>
+        <ProfilePic id={profile.id}></ProfilePic>
         <Profile>
           <UserInfo
             id={profile.id}

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getProfile } from "../apis/user";
 import { getReceivedQuestion, getSentQuestion } from "../apis/qna";
@@ -8,6 +7,10 @@ import {
   AlignColumn,
   AlignRow,
   CardContainer,
+  FixedHeight,
+  FixedWidth,
+  FullHeight,
+  FullWidth,
   Layout,
 } from "../components/layout";
 import NavBar from "../components/navbar";
@@ -18,6 +21,8 @@ import TextButton from "../components/text_button";
 
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { ProfilePic } from "../components/profile_card";
+import UserInfo from "../components/user_info";
 const ProgressBar = ({ percent }) => {
   return (
     <CircularProgressBar
@@ -102,68 +107,86 @@ const MyPage = () => {
     <AlignCenter>
       <NavBar></NavBar>
       <Layout>
-        <TitleArea
-          title="My Page"
-          subtitle="내 정보 및 설정"
-          on={"true"}
-        ></TitleArea>
-        <AlignRow>
-          <AlignColumn>
+        <FixedWidth>
+          <TitleArea
+            title="My Page"
+            subtitle="내 정보 및 설정"
+            on={"true"}
+          ></TitleArea>
+          <AlignRow>
+            <AlignColumn>
+              <CardContainer>
+                <Subtitle>내 프로필</Subtitle>
+
+                <AlignRow>
+                  <ProfilePic></ProfilePic>
+
+                  {profile && (
+                    <UserInfo
+                      profileName={profile.username}
+                      bio={profile.bio}
+                      questionCount={profile.receivedQuestionCount}
+                    ></UserInfo>
+                  )}
+                </AlignRow>
+              </CardContainer>
+              <CardContainer>
+                <AlignColumn>
+                  <Subtitle children="개인정보 / 프로필 관리"></Subtitle>
+                  <TextButton children={"아이디 / 비밀번호 변경"}></TextButton>
+                  <TextButton children={"프로필 사진 변경"}></TextButton>
+                  <TextButton children={"자기소개 변경"}></TextButton>
+                </AlignColumn>
+              </CardContainer>
+            </AlignColumn>
+
             <CardContainer>
-              <AlignColumn>
-                <Subtitle children="개인정보 / 프로필 관리"></Subtitle>
-                <TextButton children={"아이디 / 비밀번호 변경"}></TextButton>
-                <TextButton children={"프로필 사진 변경"}></TextButton>
-                <TextButton children={"자기소개 변경"}></TextButton>
-              </AlignColumn>
+              <FixedHeight>
+                <AlignColumn>
+                  <Subtitle children="나의 활동"></Subtitle>
+                  <br />
+                  <AlignRow>
+                    <AlignColumn>
+                      내가 보낸 질문: {sentCount}개
+                      <br />
+                      <br />
+                      내가 받은 질문: {receivedCount}개
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      내가 받은 답변: {answeredByOthersCount}개
+                      <br />
+                      <br />
+                      내가 보낸 답변: {answeredCount}개
+                    </AlignColumn>
+                    {/* for spacing */}
+                    <AlignColumn></AlignColumn>
+
+                    <AlignColumn>
+                      <AlignCenter>
+                        나의 답변율
+                        <ProgressBar percent={myAnswerRate}></ProgressBar>
+                      </AlignCenter>
+                    </AlignColumn>
+                    <AlignColumn>
+                      <AlignCenter>
+                        내 질문에 대한 답변율
+                        <ProgressBar percent={receivedAnswerRate}></ProgressBar>
+                      </AlignCenter>
+                    </AlignColumn>
+                  </AlignRow>
+                </AlignColumn>
+              </FixedHeight>
             </CardContainer>
-            <CardContainer>
-              <AlignColumn>
+            <AlignColumn>
+              <CardContainer>
                 <Subtitle children="나의 업적"></Subtitle>
                 업적을 획득해보세요!
-              </AlignColumn>
-            </CardContainer>
-          </AlignColumn>
-
-          <CardContainer>
-            <AlignColumn>
-              <Subtitle children="나의 활동"></Subtitle>
-              <AlignRow>
-                <AlignColumn>
-                  내가 보낸 질문: {sentCount}개
-                  <br />
-                  <br />
-                  내가 받은 질문: {receivedCount}개
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  내가 받은 답변: {answeredByOthersCount}개
-                  <br />
-                  <br />
-                  내가 보낸 답변: {answeredCount}개
-                </AlignColumn>
-                <AlignColumn></AlignColumn>
-
-                <AlignColumn>
-                  <AlignCenter>
-                    나의 답변율
-                    <ProgressBar percent={myAnswerRate}></ProgressBar>
-                  </AlignCenter>
-                </AlignColumn>
-                <AlignColumn>
-                  <AlignCenter>
-                    내 질문에 대한 답변율
-                    <ProgressBar percent={receivedAnswerRate}></ProgressBar>
-                  </AlignCenter>
-                </AlignColumn>
-              </AlignRow>
+              </CardContainer>
             </AlignColumn>
-          </CardContainer>
-          <CardContainer>
-            {/* <Subtitle>최근 받은 답변</Subtitle> */}
-          </CardContainer>
-        </AlignRow>
+          </AlignRow>
+        </FixedWidth>
       </Layout>
     </AlignCenter>
   );
