@@ -3,20 +3,22 @@ import { createContext, useState, useContext, useEffect } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    // 로컬스토리지에서 초기 상태 가져오기
-    const savedStatus = localStorage.getItem("isLoggedIn");
-    return savedStatus === "true";
-  });
+  // const [isLoggedIn, setIsLoggedIn] = useState(() => {
+  //   // 로컬스토리지에서 초기 상태 가져오기
+  //   const savedStatus = localStorage.getItem("isLoggedIn");
+  //   return savedStatus === "true";
+  // });
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const setLogin = () => {
     setIsLoggedIn(true);
-    localStorage.setItem("isLoggedIn", "true");
+    // localStorage.setItem("isLoggedIn", "true");
   };
 
   const setLogout = () => {
     setIsLoggedIn(false);
-    localStorage.setItem("isLoggedIn", "false");
+    // localStorage.setItem("isLoggedIn", "false");
   };
 
   useEffect(() => {

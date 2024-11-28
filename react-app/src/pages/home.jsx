@@ -22,19 +22,21 @@ function Home() {
     if (!isLoggedIn) {
       navigate("/login");
     }
-    console.log("isLoggedIn: ", isLoggedIn);
+    // console.log("isLoggedIn: ", isLoggedIn);
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    async function fetchAllUsers() {
-      try {
-        const data = await getAllUsers();
-        setProfiles(data);
-      } catch (error) {
-        console.error(error);
+    if (isLoggedIn) {
+      async function fetchAllUsers() {
+        try {
+          const data = await getAllUsers();
+          setProfiles(data);
+        } catch (error) {
+          console.error(error);
+        }
       }
+      fetchAllUsers();
     }
-    fetchAllUsers();
   }, []);
 
   return (
