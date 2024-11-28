@@ -4,7 +4,7 @@ import { getReceivedQuestion } from "../apis/qna";
 import { Subtitle } from "./subtitle";
 import { StyledSection } from "../pages/inbox";
 import { InboxCardWrapper } from "../pages/inbox";
-import { AnswerModal } from "./modal";
+import { AnswerModal, ViewAnswerModal } from "./modal";
 
 const QuestionSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +37,6 @@ const QuestionSection = () => {
 
   useEffect(() => {
     fetchQuestions();
-    // console.log(questions);
   }, []);
 
   useEffect(() => {
@@ -67,10 +66,17 @@ const QuestionSection = () => {
               />
             ))}
 
-      {!isModalOpen && modalData && (
+      {!isModalOpen && !modalData.answer && (
         <AnswerModal question={modalData} onClose={toggleModal} />
       )}
-
+      {!isModalOpen && modalData.answer && (
+        <ViewAnswerModal
+          question={modalData}
+          // answer={modalData}
+          onClose={toggleModal}
+        />
+      )}
+      <br />
       <Subtitle>답변을 보낸 질문 ({answeredCount})</Subtitle>
       {answeredCount === 0
         ? "아직 답변한 질문이 없습니다!"
