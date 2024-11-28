@@ -142,7 +142,6 @@ export const QuestionModal = ({ user, onClose }) => {
             placeholder={"질문을 입력하세요."}
             onChange={(e) => {
               setContent(e.target.value);
-              // console.log(e);
             }}
           ></InputField>
         </StyledQuestionContent>
@@ -177,7 +176,7 @@ export const QuestionModal = ({ user, onClose }) => {
 //             placeholder={"질문을 입력하세요."}
 //             onChange={(e) => {
 //               setContent(e.target.value);
-//               // console.log(e);
+//
 //             }}
 //           ></InputField>
 //         </StyledQuestionContent>

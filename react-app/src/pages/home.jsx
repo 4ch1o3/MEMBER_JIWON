@@ -22,7 +22,6 @@ function Home() {
     if (!isLoggedIn) {
       navigate("/login");
     }
-    // console.log("isLoggedIn: ", isLoggedIn);
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {

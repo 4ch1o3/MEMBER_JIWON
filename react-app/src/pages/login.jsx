@@ -103,7 +103,6 @@ function Login() {
             required
             onChange={(e) => {
               setEmail(e.target.value);
-              // console.log(e.target.value);
             }}
             onKeyDown={handleKeyDown}
           ></InputForm>

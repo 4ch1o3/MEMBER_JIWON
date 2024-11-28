@@ -39,7 +39,7 @@ const AnswerSection = () => {
     setModalData(data);
     setIsModalOpen();
   };
-  console.log(answers);
+
   return (
     <StyledSection>
       <Subtitle>내가 받은 답변 ({totalCount})</Subtitle>
